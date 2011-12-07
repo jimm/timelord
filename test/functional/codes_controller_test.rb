@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CodesControllerTest < ActionController::TestCase
   setup do
-    @code = codes(:one)
+    @code = codes(:loc1code1)
   end
 
   test "should get index" do

@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  code_id: 
+  code: loc1code1
   worked_at: 2011-12-05
   minutes: 
   rate_cents: 
@@ -9,7 +9,7 @@ one:
   note: MyText
 
 two:
-  code_id: 
+  code: loc2code2
   worked_at: 2011-12-05
   minutes: 
   rate_cents: 
