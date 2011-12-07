@@ -10,6 +10,9 @@ Timelord::Application.routes.draw do
 
   match 'locations/:id/codes(.:format)', :controller => 'locations', :action => 'codes'
 
+  match 'invoice', :controller => 'invoice', :action => 'index'
+  match 'invoice/generate', :controller => 'invoice', :action => 'generate'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
