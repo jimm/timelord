@@ -8,6 +8,8 @@ Timelord::Application.routes.draw do
   match 'nav', :controller => 'nav', :action => 'index'
   match 'nav/:action', :controller => 'nav'
 
+  match 'locations/:id/codes(.:format)', :controller => 'locations', :action => 'codes'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

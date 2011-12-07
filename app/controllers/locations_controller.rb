@@ -80,4 +80,14 @@ class LocationsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # GET /locations/1/codes
+  # GET /locations/1/codes.json
+  def codes
+    @location = Location.find(params[:id])
+    respond_to do |format|
+      format.html { render text: 'not yet implemented' }
+      format.json { render json: @location.codes }
+    end
+  end
 end

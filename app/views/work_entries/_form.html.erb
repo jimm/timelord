@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label 'Location' %><br />
+    <%= label_tag :location, 'Location' %><br />
     <%= select_tag "locations", options_from_collection_for_select(@locations, :id, :name) %>
   </div>
   <div class="field">
