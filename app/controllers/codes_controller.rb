@@ -25,6 +25,7 @@ class CodesController < ApplicationController
   # GET /codes/new.json
   def new
     @code = Code.new
+    @locations = Location.order(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,7 @@ class CodesController < ApplicationController
   # GET /codes/1/edit
   def edit
     @code = Code.find(params[:id])
+    @locations = Location.order(:name)
   end
 
   # POST /codes

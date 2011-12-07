@@ -12,7 +12,7 @@
 
 <% @codes.each do |code| %>
   <tr>
-    <td><%= code.location_id %></td>
+    <td><%= code.location.name %></td>
     <td><%= code.code %></td>
     <td><%= code.name %></td>
     <td><%= link_to 'Show', code %></td>
