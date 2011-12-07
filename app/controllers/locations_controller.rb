@@ -86,7 +86,7 @@ class LocationsController < ApplicationController
   def codes
     @location = Location.find(params[:id])
     respond_to do |format|
-      format.html { render text: 'not yet implemented' }
+      format.html { render text: 'only .json is implemented' }
       format.json { render json: @location.codes }
     end
   end
