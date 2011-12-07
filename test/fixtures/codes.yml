@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+loc1code1:
+  location: loc1
+  code: L1.A
+  name: Location One Code One
+
+loc1code2:
+  location: loc1
+  code: L1.B
+  name: Location One Code Two
+
+loc2code1:
+  location: loc2
+  code: L2.A
+  name: Location Two Code One
+
+loc2code2:
+  location: loc2
+  code: L2.B
+  name: Location Two Code Two

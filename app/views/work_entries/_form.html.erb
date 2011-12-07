@@ -1,0 +1,37 @@
+<%= form_for(@work_entry) do |f| %>
+  <% if @work_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@work_entry.errors.count, "error") %> prohibited this work_entry from being saved:</h2>
+
+      <ul>
+      <% @work_entry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Location' %><br />
+    <%= select_tag "locations", options_from_collection_for_select(@locations, :id, :name) %>
+  </div>
+  <div class="field">
+    <%= f.label :code_id %><br />
+    <%= collection_select(:work_entry, :code_id, @initial_codes, :id, :full_name) %>
+  </div>
+  <div class="field">
+    Date<br />
+    <%= f.date_select :worked_at %>
+  </div>
+  <div class="field">
+    <%= f.label :minutes %><br />
+    <%= f.text_field :minutes %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @work_entry.code_id %>
+</p>
+
+<p>
+  <b>Worked at:</b>
+  <%= @work_entry.worked_at %>
+</p>
+
+<p>
+  <b>Minutes:</b>
+  <%= @work_entry.minutes %>
+</p>
+
+<p>
+  <b>Rate cents:</b>
+  <%= @work_entry.rate_cents %>
+</p>
+
+<p>
+  <b>Fee cents:</b>
+  <%= @work_entry.fee_cents %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @work_entry.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_work_entry_path(@work_entry) %> |
+<%= link_to 'Back', work_entries_path %>

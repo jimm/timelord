@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  code_id: 
+  worked_at: 2011-12-05
+  minutes: 
+  rate_cents: 
+  fee_cents: 
+  note: MyText
+
+two:
+  code_id: 
+  worked_at: 2011-12-05
+  minutes: 
+  rate_cents: 
+  fee_cents: 
+  note: MyText
