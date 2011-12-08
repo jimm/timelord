@@ -1,25 +1,21 @@
 #!/usr/bin/env ruby
 #
 # usage: import.rb data_file
+#
+# To recreate/reseed database call "rake db:reset" first.
 
 require 'csv'
 require File.join(File.dirname(__FILE__) , '../../config/environment')
 require 'code'
 require 'work_entry'
 
-env = ENV['RAILS_ENV'] || 'development'
-if ARGV[0] == '-e'
-  ARGV.shift
-  env = ARGV.shift
-end
-
 curr_date = nil
 CSV.foreach(ARGV[0]) do |row|
   date, code_str, dur, note = *row
-  next if date == 'Date' || note == ''
+  next if date == 'Date' || note == nil
   break if date == 'Project'
 
-  date = curr_date if date == ''
+  date = curr_date if date == nil
   curr_date = date
   date =~ %r{(\d+)/(\d+)/(\d+)}
   m, d, y = $1.to_i, $2.to_i, $3.to_i
@@ -30,7 +26,7 @@ CSV.foreach(ARGV[0]) do |row|
 
   code = Code.find_by_code(code_str)
   unless code
-    $stderr.puts("Code #{code_str} not found; assigning to first code.") if code_str != ''
+    $stderr.puts("Code #{code_str} not found; assigning to first code.") if code_str != nil
     $stderr.puts "row = #{row.inspect}" # DEBUG
     code = Code.first
   end
