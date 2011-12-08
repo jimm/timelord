@@ -6,8 +6,9 @@
 
 require 'csv'
 require File.join(File.dirname(__FILE__) , '../../config/environment')
-require 'code'
-require 'work_entry'
+
+unknown_loc = Location.find_by_name('Unknown')
+unknown_code = Code.find_by_name('Unknown')
 
 curr_date = nil
 CSV.foreach(ARGV[0]) do |row|
@@ -26,10 +27,12 @@ CSV.foreach(ARGV[0]) do |row|
 
   code = Code.find_by_code(code_str)
   unless code
-    $stderr.puts("Code #{code_str} not found; assigning to first code.") if code_str != nil
-    $stderr.puts "row = #{row.inspect}" # DEBUG
-    code = Code.first
+    unless unknown_loc
+      unknown_loc = Location.create!(:name => 'Unknown')
+      unknown_code ||= Code.create!(:location => unknown_loc, :code => 'UNKNOWN', :name => 'Unknown')
+    end
+    code = unknown_code
   end
   we = WorkEntry.new(:code => code, :worked_at => date_string, :minutes => minutes, :note => note)
-  # we.save
+  we.save
 end
