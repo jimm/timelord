@@ -1,0 +1,63 @@
+<h1>Invoice Preview</h1>
+
+<p><%= link_to 'Export as CSV', :controller => invoice_path, :action => 'preview', :format => 'csv', :year => @inv.year, :month => @inv.month %></p>
+
+<p>Menard time from <%= @inv.date_range_start %> - <%= @inv.date_range_end %> <%= @inv.year %></p>
+
+<table>
+  <tr>
+    <th>Location</th>
+    <th>Date</th>
+    <th>Code</th>
+    <th>Time Spent</th>
+    <th>$/Hour</th>
+    <th>Notes</th>
+    <th>Fee</th>
+  </tr>
+<% @inv.locations.each do |loc| %>
+  <tr>
+    <td><b><%= loc.name %></b></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <% @inv.work_entries_at(loc).each do |w| %>
+    <tr>
+      <td>&nbsp;</td>
+      <td><%= w.worked_at %></td>
+      <td><%= w.code.full_name %></td>
+      <td class="right"><%= w.minutes_as_duration %></td>
+      <td class="right"><%= @inv.money_str(w.rate_cents) %></td>
+      <td><%= w.note %></td>
+      <td class="right"><%= @inv.money_str(w.fee_cents) %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+<br/>
+<br/>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Subtotal</th>
+  </tr>
+  <% @inv.codes.each do |code| %>
+    <tr>
+      <td><%= code.full_name %></td>
+      <td class="right"><%= @inv.money_str(@inv.code_subtotal(code)) %>
+    </tr>
+  <% end %>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>Total</b></td>
+    <td class="right"><%= @inv.money_str(@inv.total) %></td>
+  </tr>
+</table>
