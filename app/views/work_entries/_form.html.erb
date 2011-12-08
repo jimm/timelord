@@ -25,8 +25,8 @@
     <%= f.date_select :worked_at %>
   </div>
   <div class="field">
-    <%= f.label :minutes %><br />
-    <%= f.text_field :minutes %>
+    <%= f.label :minutes, 'Time Spent' %><br />
+    <%= f.text_field :minutes, value: @work_entry.minutes_as_duration %>
   </div>
   <div class="field">
     <%= f.label :note %><br />

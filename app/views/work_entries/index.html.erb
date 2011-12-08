@@ -4,9 +4,9 @@
   <tr>
     <th>Code</th>
     <th>Worked at</th>
-    <th>Minutes</th>
-    <th>Rate cents</th>
-    <th>Fee cents</th>
+    <th>Time Spent</th>
+    <th>Rate (Cents)</th>
+    <th>Fee (Cents)</th>
     <th>Note</th>
     <th></th>
     <th></th>
@@ -15,9 +15,9 @@
 
 <% @work_entries.each do |work_entry| %>
   <tr>
-    <td><%= work_entry.code_id %></td>
+    <td><%= work_entry.code.full_name %></td>
     <td><%= work_entry.worked_at %></td>
-    <td><%= work_entry.minutes %></td>
+    <td><%= work_entry.minutes_as_duration %></td>
     <td><%= work_entry.rate_cents %></td>
     <td><%= work_entry.fee_cents %></td>
     <td><%= work_entry.note %></td>

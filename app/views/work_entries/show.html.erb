@@ -2,7 +2,7 @@
 
 <p>
   <b>Code:</b>
-  <%= @work_entry.code_id %>
+  <%= @work_entry.code.full_name %>
 </p>
 
 <p>
@@ -11,17 +11,17 @@
 </p>
 
 <p>
-  <b>Minutes:</b>
-  <%= @work_entry.minutes %>
+  <b>Time Spent:</b>
+  <%= @work_entry.minutes_as_duration %>
 </p>
 
 <p>
-  <b>Rate cents:</b>
+  <b>Rate (Cents):</b>
   <%= @work_entry.rate_cents %>
 </p>
 
 <p>
-  <b>Fee cents:</b>
+  <b>Fee (Cents):</b>
   <%= @work_entry.fee_cents %>
 </p>
 

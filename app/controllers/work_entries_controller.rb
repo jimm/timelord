@@ -44,7 +44,7 @@ class WorkEntriesController < ApplicationController
   # POST /work_entries
   # POST /work_entries.json
   def create
-    @work_entry = WorkEntry.new(params[:work_entry])
+    @work_entry = WorkEntry.new(duration_to_minutes(params[:work_entry]))
 
     respond_to do |format|
       if @work_entry.save
@@ -63,7 +63,9 @@ class WorkEntriesController < ApplicationController
     @work_entry = WorkEntry.find(params[:id])
 
     respond_to do |format|
-      if @work_entry.update_attributes(params[:work_entry])
+      logger.debug "duration_to_minutes(params[:work_entry]) = #{duration_to_minutes(params[:work_entry])}" # DEBUG
+      if @work_entry.update_attributes(duration_to_minutes(params[:work_entry]))
+        logger.debug "@work_entry.minutes = #{@work_entry.minutes}"
         format.html { redirect_to @work_entry, notice: 'Work entry was successfully updated.' }
         format.json { head :ok }
       else
@@ -84,4 +86,11 @@ class WorkEntriesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def duration_to_minutes(param_hash)
+    param_hash = param_hash.symbolize_keys
+    param_hash[:minutes] = WorkEntry.duration_as_minutes(param_hash[:minutes])
+    param_hash
+  end
+
 end
