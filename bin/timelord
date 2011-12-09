@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# usage: timelord [start | stop]
+
+cd $(dirname $0)/..
+
+case "$1" in
+    start)
+        rails server -d -e production
+        ;;
+    stop)
+        kill -9 $(cat tmp/pids/server.pid)
+        ;;
+    *)
+        usage: $0 '[start | stop]'
+esac
