@@ -1,8 +1,25 @@
 * To Do
 
+** TODO if delete code or loc, do right thing to objs that use it
+** TODO invoice number
+** TODO page X of Y
 ** TODO restart app on machine restart
 ** TODO pretty output of whole doc
-** TODO add headers
+** TODO add header
+Erica March Menard
+1000 Old Post Road
+Fairfield, CT 06824
+	      	Invoice  #11
+  		November 1-November 30, 2011
+TO:
+Marc Weinreich, Vice President
+Greenfield Environmental Trust Group, Inc.
+1928 Eagle Crest Drive
+Draper, UT  84020		
+
+** TODO add footer
+Erica March Menard / Invoice #11 / November 1-November 30, 2011
+Page X of Y
 ** TODO subtotals
 cols C location
 cols D code and total work

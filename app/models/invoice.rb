@@ -1,8 +1,11 @@
 require 'csv'
+require 'prawn'
 
 class Invoice
 
   MONTHS = %w(huh January February March April May June July August September October November December)
+  PDF_HEADER_BG = 'eeeeee'
+  PDF_LOCATION_BG = 'ddddff'
 
   attr_reader :year, :month, :work_entries, :total
 
@@ -32,6 +35,10 @@ class Invoice
       w.rate_cents = 10000
       w.fee_cents = w.rate_cents * w.minutes / 60
     }
+  end
+
+  def invoice_number
+    (year - 2011) * 12 + month
   end
 
   def locations
@@ -66,29 +73,130 @@ class Invoice
     Invoice.money_str(cents)
   end
 
-  def csv_file_name
-    "#{MONTHS[month]} #{year} Invoice.csv"
+  def csv_download_file_name
+    download_file_name('csv')
+  end
+
+  def pdf_download_file_name
+    download_file_name('pdf')
+  end
+
+  def pdf_file_path
+    "/tmp/timelord_#{MONTHS[month]}_#{year}_Invoice.pdf"
+  end
+
+  def download_file_name(extension)
+    "#{MONTHS[month]} #{year} Invoice.#{extension}"
   end
 
   def to_csv
     CSV.generate do |csv|
-      csv << ['', "Menard time from #{date_range_start} - #{date_range_end}, #{year}"]
+      csv_header.each { |row| csv << row }
       csv << ['']
-      csv << ['Location', 'Date', 'Code', 'Time Spent', '$/Hour', 'Notes', 'Fee']
-      locations.each do |loc|
-        csv << [loc.name]
-        work_entries_at(loc).each do |w|
-          csv << ['', w.worked_at, w.code.full_name, w.minutes_as_duration, money_str(w.rate_cents), w.note, money_str(w.fee_cents)]
-        end
-      end
+      csv_data.each { |row| csv << row }
       csv << ['']
-      csv << ['Location', 'Code', 'Subtotal']
-      codes.each do | code|
-        csv << [code.location.name, code.full_name, money_str(code_subtotal(code))]
-      end
-      csv << ['']
-      csv << ['', 'Total', money_str(total)]
+      csv_totals.each { |row| csv << row }
     end
+  end
+
+  def csv_header
+    ['', "Menard time from #{date_range_start} - #{date_range_end}, #{year}"]
+  end
+
+  def csv_data
+    csv = []
+    csv << ['Location', 'Date', 'Code', 'Time Spent', '$/Hour', 'Notes', 'Fee']
+    locations.each do |loc|
+      csv << [loc.name]
+      work_entries_at(loc).each do |w|
+        csv << ['', w.worked_at, w.code.full_name, w.minutes_as_duration, money_str(w.rate_cents), w.note, money_str(w.fee_cents)]
+      end
+    end
+    csv
+  end
+
+  def csv_totals
+    csv = []
+    csv << ['Location', 'Code', 'Subtotal']
+    codes.each do | code|
+      csv << [code.location.name, code.full_name, money_str(code_subtotal(code))]
+    end
+    csv << ['', '', '']
+    csv << ['', 'Total', money_str(total)]
+  end
+
+  # Write invoice to PDF and returns the path to that file
+  def write_to_pdf
+    path = pdf_file_path
+    Prawn::Document.generate(path, :page_layout => :landscape) do |pdf|
+      @pdf = pdf
+      pdf_header
+      @pdf.start_new_page
+      pdf_main_table
+      @pdf.move_down 30
+      pdf_totals_table
+      pdf_footer
+    end
+    path
+  end
+
+  def pdf_header
+    str = <<EOS
+Erica March Menard
+1000 Old Post Road
+Fairfield, CT 06824
+EOS
+    str.each_line { |line| @pdf.text line, :style => :bold, :align => :center }
+    @pdf.move_down 30
+    str = <<EOS
+Invoice  ##{invoice_number}
+#{date_range_start}-#{date_range_end}, #{year}
+EOS
+    str.each_line { |line| @pdf.text line, :style => :bold, :align => :right }
+    @pdf.move_down 100
+    str = <<EOS
+TO:
+Marc Weinreich, Vice President
+Greenfield Environmental Trust Group, Inc.
+1928 Eagle Crest Drive
+Draper, UT  84020		
+EOS
+    str.each_line { |line| @pdf.text line, :style => :bold }
+  end
+
+  def pdf_main_table
+    data = csv_data
+    data[0].each_with_index { |str, i| data[0][i] = @pdf.make_cell(:content => str, :background_color => PDF_HEADER_BG) }
+    data.each_with_index { |row, i|
+      if row.length == 1
+        row[0] = @pdf.make_cell(:content => row[0], :background_color => PDF_LOCATION_BG)
+      end
+    }
+    @pdf.table(data, :header => true)
+  end
+
+  def pdf_totals_table
+    data = csv_totals
+    data[0].each_with_index { |str, i| data[0][i] = @pdf.make_cell(:content => str, :background_color => PDF_HEADER_BG) }
+    data[-1][1] = @pdf.make_cell(:content => data[-1][1], :background_color => PDF_HEADER_BG)
+    @pdf.table(data, :header => true)
+  end
+
+  def pdf_footer
+    all_but_first_page = lambda { |pg| pg > 1 }
+
+    @pdf.repeat(all_but_first_page) do
+      @pdf.bounding_box [@pdf.bounds.left, 12], :width  => @pdf.bounds.width do
+        @pdf.text "Erica March Menard / Invoice ##{invoice_number} / #{date_range_start} - #{date_range_end}, #{year}"
+      end
+    end
+
+    opts = {
+      :page_filter => all_but_first_page,
+      :start_count_at => 2,
+      :at => [@pdf.bounds.right - 90, 12]
+    }
+    @pdf.number_pages "Page <page> of <total>", opts
   end
 
 end
