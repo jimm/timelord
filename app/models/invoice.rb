@@ -82,9 +82,9 @@ class Invoice
         end
       end
       csv << ['']
-      csv << ['Code', 'Subtotal']
+      csv << ['Location', 'Code', 'Subtotal']
       codes.each do | code|
-        csv << [code.full_name, money_str(code_subtotal(code))]
+        csv << [code.location.name, code.full_name, money_str(code_subtotal(code))]
       end
       csv << ['']
       csv << ['Total', money_str(total)]

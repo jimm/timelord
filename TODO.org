@@ -1,0 +1,4 @@
+* To Do
+
+** TODO restart app on machine restart
+** TODO pretty output of whole doc

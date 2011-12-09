@@ -43,11 +43,13 @@
 
 <table>
   <tr>
+    <th>Location</th>
     <th>Code</th>
     <th>Subtotal</th>
   </tr>
   <% @inv.codes.each do |code| %>
     <tr>
+      <td><%= code.location.name %></td>
       <td><%= code.full_name %></td>
       <td class="right"><%= @inv.money_str(@inv.code_subtotal(code)) %>
     </tr>
