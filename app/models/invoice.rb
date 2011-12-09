@@ -87,7 +87,7 @@ class Invoice
         csv << [code.location.name, code.full_name, money_str(code_subtotal(code))]
       end
       csv << ['']
-      csv << ['Total', money_str(total)]
+      csv << ['', 'Total', money_str(total)]
     end
   end
 
