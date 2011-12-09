@@ -72,7 +72,7 @@ class Invoice
 
   def to_csv
     CSV.generate do |csv|
-      csv << ['', "Menard time from #{date_range_start} - #{date_range_end} #{year}"]
+      csv << ['', "Menard time from #{date_range_start} - #{date_range_end}, #{year}"]
       csv << ['']
       csv << ['Location', 'Date', 'Code', 'Time Spent', '$/Hour', 'Notes', 'Fee']
       locations.each do |loc|

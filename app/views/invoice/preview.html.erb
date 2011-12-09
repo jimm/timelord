@@ -2,7 +2,7 @@
 
 <p><%= link_to 'Export as CSV', :controller => invoice_path, :action => 'preview', :format => 'csv', :year => @inv.year, :month => @inv.month %></p>
 
-<p>Menard time from <%= @inv.date_range_start %> - <%= @inv.date_range_end %> <%= @inv.year %></p>
+<p>Menard time from <%= @inv.date_range_start %> - <%= @inv.date_range_end %>, <%= @inv.year %></p>
 
 <table>
   <tr>
@@ -55,6 +55,7 @@
     </tr>
   <% end %>
   <tr>
+    <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>

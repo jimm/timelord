@@ -2,3 +2,8 @@
 
 ** TODO restart app on machine restart
 ** TODO pretty output of whole doc
+** TODO add headers
+** TODO subtotals
+cols C location
+cols D code and total work
+cols G subtotals and amount
