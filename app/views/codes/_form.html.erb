@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :location_id %><br />
-    <%= select_tag "code_location_id", options_from_collection_for_select(@locations, :id, :name, @code.location_id) %>
+    <%= select_tag "code_location_id", options_from_collection_for_select(@locations, :id, :name, @code.location_id), {:name => 'code[location_id]'} %>
   </div>
   <div class="field">
     <%= f.label :code %><br />

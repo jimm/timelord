@@ -1,6 +1,9 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+loc = Location.create(name: 'Unknown')
+Code.create(location: loc, code: 'Unknown', name: 'Unknown')
+
 loc = Location.create(name: 'Birmingport ECA')
 Code.create(location: loc, code: 'II.A', name: 'Regulatory Compliance')
 Code.create(location: loc, code: 'II.B', name: 'O & M')
@@ -330,6 +333,12 @@ Code.create(location: loc, code: 'XXXI.F', name: 'Regulator Oversight Costs')
 Code.create(location: loc, code: 'XXXI.G', name: 'Legal Costs')
 Code.create(location: loc, code: 'XXXI.H', name: 'Accounting Costs')
 Code.create(location: loc, code: 'XXXI.I', name: 'Lease & Property Use - Inc & Exp')
+
+loc = Location.create(name: 'Savannah AA')
+Code.create(location: loc, code: 'S.II.F', name: 'Legal Affairs')
+
+loc = Location.create(name: 'Savannah ECA')
+Code.create(location: loc, code: 'S.I.G', name: 'Legal Costs')
 
 loc = Location.create(name: 'MST Work ECA')
 Code.create(location: loc, code: 'XXXII.A', name: 'Regulatory Compliance')
