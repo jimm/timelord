@@ -4,8 +4,11 @@ require 'prawn'
 class Invoice
 
   MONTHS = %w(huh January February March April May June July August September October November December)
+  HEADERS = ['Location', 'Date', 'Code', 'Time', '$/Hour', 'Notes', 'Fee']
   PDF_HEADER_BG = 'eeeeee'
   PDF_LOCATION_BG = 'ddddff'
+  PDF_RIGHT_JUSTIFY_COLS = [3, 4, 6]
+  PDF_WORK_ENTRY_COL_WIDTHS = {1 => 60, 2 => 120, 4 => 50, 6 => 50}
 
   attr_reader :year, :month, :work_entries, :total
 
@@ -105,7 +108,7 @@ class Invoice
 
   def csv_data
     csv = []
-    csv << ['Location', 'Date', 'Code', 'Time Spent', '$/Hour', 'Notes', 'Fee']
+    csv << HEADERS
     locations.each do |loc|
       csv << [loc.name]
       work_entries_at(loc).each do |w|
@@ -131,11 +134,13 @@ class Invoice
     Prawn::Document.generate(path, :page_layout => :landscape) do |pdf|
       @pdf = pdf
       pdf_header
+      pdf_footer
+
+      @pdf.font_size 9
       @pdf.start_new_page
       pdf_main_table
-      @pdf.move_down 30
+      @pdf.start_new_page
       pdf_totals_table
-      pdf_footer
     end
     path
   end
@@ -166,13 +171,26 @@ EOS
 
   def pdf_main_table
     data = csv_data
+
+    # colorize headers
     data[0].each_with_index { |str, i| data[0][i] = @pdf.make_cell(:content => str, :background_color => PDF_HEADER_BG) }
-    data.each_with_index { |row, i|
+
+    # colorize locations and change widths of cols
+    data.each_with_index do |row, i|
       if row.length == 1
         row[0] = @pdf.make_cell(:content => row[0], :background_color => PDF_LOCATION_BG)
       end
-    }
-    @pdf.table(data, :header => true)
+    end
+    
+    # right-justify some columns
+    data[1..-1].each_with_index do |row, i|
+      unless row.length == 1
+        PDF_RIGHT_JUSTIFY_COLS.each { |col| row[col] = @pdf.make_cell(:content => row[col], :align => :right) }
+      end
+    end
+
+    col_widths = PDF_WORK_ENTRY_COL_WIDTHS
+    @pdf.table(data, :header => true, :column_widths => col_widths)
   end
 
   def pdf_totals_table
