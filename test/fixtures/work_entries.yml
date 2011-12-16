@@ -3,7 +3,7 @@
 one:
   code: loc1code1
   worked_at: 2011-12-05
-  minutes: 
+  minutes: 75
   rate_cents: 
   fee_cents: 
   note: MyText
@@ -11,7 +11,15 @@ one:
 two:
   code: loc2code2
   worked_at: 2011-12-05
-  minutes: 
+  minutes: 90
+  rate_cents: 
+  fee_cents: 
+  note: MyText
+
+older:
+  code: loc2code2
+  worked_at: 2011-11-05
+  minutes: 120
   rate_cents: 
   fee_cents: 
   note: MyText
