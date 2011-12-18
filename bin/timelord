@@ -2,14 +2,17 @@
 #
 # usage: timelord [start | stop]
 
+PIDFILE=tmp/pids/server.pid
+
 cd $(dirname $0)/..
+mkdir -p tmp/pids
 
 case "$1" in
     start)
-        rails server -d -e production
+        thin -d -a localhost -p 3000 -e production -P $PIDFILE start
         ;;
     stop)
-        kill -9 $(cat tmp/pids/server.pid)
+        thin -P $PIDFILE stop
         ;;
     *)
         usage: $0 '[start | stop]'
