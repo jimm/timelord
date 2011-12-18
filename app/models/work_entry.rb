@@ -1,5 +1,7 @@
 class WorkEntry < ActiveRecord::Base
+
   belongs_to :code
+  belongs_to :user
 
   scope :in_month, lambda { |year, month| where('extract (year from worked_at) = ? and extract(month from worked_at) = ?', year, month) }
 

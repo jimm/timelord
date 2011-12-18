@@ -1,4 +1,6 @@
 Timelord::Application.routes.draw do
+  resources :users
+
   resources :work_entries
 
   resources :codes
