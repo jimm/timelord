@@ -18,8 +18,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should create user" do
+    attrs = @user.attributes.merge :login => 'new_login'
     assert_difference('User.count') do
-      post :create, user: @user.attributes
+      post :create, user: attrs
     end
 
     assert_redirected_to user_path(assigns(:user))
