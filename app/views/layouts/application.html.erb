@@ -11,6 +11,8 @@
 <div class="header">
   <div class="rhs">
     <% if @curr_user %>
+      <%= @curr_user.name %>
+      |
       <%= link_to_unless_current 'Account', "/account/#{@curr_user.id}/edit" %>
       |
       <%= link_to 'Log Out', "/account/logout" %>
