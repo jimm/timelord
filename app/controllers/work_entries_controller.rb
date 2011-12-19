@@ -66,9 +66,7 @@ class WorkEntriesController < ApplicationController
     @work_entry = WorkEntry.find(params[:id])
 
     respond_to do |format|
-      logger.debug "duration_to_minutes(params[:work_entry]) = #{duration_to_minutes(params[:work_entry])}" # DEBUG
       if @work_entry.update_attributes(duration_to_minutes(params[:work_entry]))
-        logger.debug "@work_entry.minutes = #{@work_entry.minutes}"
         format.html { redirect_to @work_entry, notice: 'Work entry was successfully updated.' }
         format.json { head :ok }
       else
