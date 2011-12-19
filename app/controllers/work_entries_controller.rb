@@ -5,8 +5,11 @@ class WorkEntriesController < ApplicationController
   # GET /work_entries
   # GET /work_entries.json
   def index
-    @work_entries = WorkEntry.find_all_by_user_id(@curr_user.id)
-
+    @work_entries = if @curr_user.admin?
+                      WorkEntry.order('worked_at').all
+                    else
+                      WorkEntry.order('worked_at').find_all_by_user_id(@curr_user.id)
+                    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @work_entries }

@@ -7,11 +7,10 @@ class AccountController < ApplicationController
   def login
     $stderr.puts "login, params[:login] = #{params[:login]}" # DEBUG
     if params[:login]
-      @user = User.authenticate(params[:login], params[:password])
-      $stderr.puts "@user = #{@user}" # DEBUG
-      if @user
+      @curr_user = User.authenticate(params[:login], params[:password])
+      if @curr_user
         session[:user_id] = @user.id
-        redirect_to '/'
+        redirect_to @curr_user.admin? ? '/nav/' : '/'
       else
         flash[:errors] = ['User with that login name and password not found']
       end
