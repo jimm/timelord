@@ -20,8 +20,8 @@
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :role %> (user or admin)<br />
-    <%= f.text_field :role %>
+    <%= f.label :role %><br />
+    <%= f.select :role, User.all_roles.collect { |r| [r, r] }, :selected => @user.role || 'user' %>
   </div>
   <div class="field">
     <%= f.label :name %><br />

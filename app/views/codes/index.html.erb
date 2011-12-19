@@ -6,8 +6,6 @@
     <th>Code</th>
     <th>Name</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @codes.each do |code| %>
@@ -15,9 +13,11 @@
     <td><%= code.location.name %></td>
     <td><%= code.code %></td>
     <td><%= code.name %></td>
-    <td><%= link_to 'Show', code %></td>
-    <td><%= link_to 'Edit', edit_code_path(code) %></td>
-    <td><%= link_to 'Destroy', code, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', code %>
+      <%= link_to 'Edit', edit_code_path(code) %>
+      <%= link_to 'Destroy', code, confirm: 'Are you sure?', method: :delete %>
+    </td>
   </tr>
 <% end %>
 </table>

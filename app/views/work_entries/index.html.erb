@@ -9,8 +9,6 @@
     <th>Fee (Cents)</th>
     <th>Note</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @work_entries.each do |work_entry| %>
@@ -21,9 +19,11 @@
     <td><%= work_entry.rate_cents %></td>
     <td><%= work_entry.fee_cents %></td>
     <td><%= work_entry.note %></td>
-    <td><%= link_to 'Show', work_entry %></td>
-    <td><%= link_to 'Edit', edit_work_entry_path(work_entry) %></td>
-    <td><%= link_to 'Destroy', work_entry, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', work_entry %>
+      <%= link_to 'Edit', edit_work_entry_path(work_entry) %>
+      <%= link_to 'Destroy', work_entry, confirm: 'Are you sure?', method: :delete %>
+    </td>
   </tr>
 <% end %>
 </table>

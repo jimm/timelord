@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
     (user && user.password_matches?(pass)) ? user : nil
   end
 
+  def self.all_roles
+    %w(user admin)
+  end
+
   def admin?
     self.role == ROLE_ADMIN
   end
