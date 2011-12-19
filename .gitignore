@@ -16,3 +16,4 @@
 
 .sass-cache
 /log/nohup.out
+.rbenv-version
