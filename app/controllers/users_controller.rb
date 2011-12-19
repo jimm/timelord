@@ -1,4 +1,22 @@
 class UsersController < ApplicationController
+
+  before_filter :logged_in, :except => [:login]
+
+  # GET /login
+  def login
+    $stderr.puts "login, params[:login] = #{params[:login]}" # DEBUG
+    if params[:login]
+      @user = User.authenticate(params[:login], params[:password])
+      $stderr.puts "@user = #{@user}" # DEBUG
+      if @user
+        session[:user_id] = @user.id
+        redirect_to '/'
+      else
+        flash[:errors] = ['User with that login name and password not found']
+      end
+    end
+  end
+
   # GET /users
   # GET /users.json
   def index
@@ -40,6 +58,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    params[:user][:address].strip!
     @user = User.new(params[:user])
 
     respond_to do |format|
@@ -56,6 +75,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+    params[:user][:address].strip!
     @user = User.find(params[:id])
 
     respond_to do |format|

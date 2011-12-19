@@ -9,7 +9,7 @@
 <body>
 
 <div class="header">
-  <h1>Time Lord</h1>
+  <h1 class="nav"><%= link_to_unless_current 'Time Lord', '/nav' %></h1>
   <div class="nav">
     <%= link_to_unless_current 'Home', '/nav' %>
     |

@@ -1,1 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  login: one
+  password: hashed_pwd
+  role: user
+  name: one
+  email: one@example.com
+  address: one one street

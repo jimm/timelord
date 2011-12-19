@@ -1,5 +1,11 @@
 * To Do
 
+** TODO name, account & logout links in upper right side of screen
+** TODO account (password, name, address change) page
+   same as edit page, but check on that page to make sure user is either
+   admin or owns that user
+
+   either that, or clone the page
 ** TODO if delete code or loc, do right thing to objs that use it
 ** TODO restart app on machine restart
    cron job, use @restart

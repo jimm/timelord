@@ -16,16 +16,24 @@
     <%= f.text_field :login %>
   </div>
   <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :role %> (user or admin)<br />
+    <%= f.text_field :role %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :hashed_password %><br />
-    <%= f.text_field :hashed_password %>
-  </div>
-  <div class="field">
-    <%= f.label :role %><br />
-    <%= f.text_field :role %>
+    <%= f.label :address %><br />
+    <%= text_area :user, :address, :rows => 6, :cols => 40 %>
   </div>
   <div class="actions">
     <%= f.submit %>

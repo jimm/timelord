@@ -1,0 +1,25 @@
+<% if flash[:errors] %>
+  <div id="error_explanation">
+    <h2>Error logging in:</h2>
+    <ul>
+      <% flash[:errors].each do |err| %>
+        <li><%= err %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>Log In</h1>
+<form action="login" method="post">
+  <div class="field">
+    <label for='login'>Login</label><br/>
+    <%= text_field_tag 'login', @user ? @user.login : '' %>
+  </div>
+  <div class="field">
+    <label for='password'>Password</label><br/>
+    <%= password_field_tag %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Log In" %>
+  </div>
+</form>

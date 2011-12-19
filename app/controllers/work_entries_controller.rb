@@ -1,4 +1,7 @@
 class WorkEntriesController < ApplicationController
+
+  before_filter :logged_in
+
   # GET /work_entries
   # GET /work_entries.json
   def index

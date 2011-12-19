@@ -3,9 +3,10 @@
 <table>
   <tr>
     <th>Login</th>
-    <th>Email</th>
-    <th>Hashed password</th>
     <th>Role</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Address</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,9 +15,10 @@
 <% @users.each do |user| %>
   <tr>
     <td><%= user.login %></td>
-    <td><%= user.email %></td>
-    <td><%= user.hashed_password %></td>
     <td><%= user.role %></td>
+    <td><%= user.name %></td>
+    <td><a href="mailto:<%= user.email %>"><%= user.email %></a></td>
+    <td><%= user.address %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>

@@ -2,6 +2,8 @@ Mime::Type.register "applicatoin/pdf", :pdf
 
 class InvoiceController < ApplicationController
 
+  before_filter :logged_in
+
   def index
   end
 

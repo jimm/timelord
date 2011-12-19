@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :login, :on => :create
 
-  # Don't validate presence of hashed_password, because that will prevent
+  # Don't validate presence of password, because that will prevent
   # crypt_unless_empty from being called due to the validation violation.
   validates_presence_of :login, :role, :name, :email, :address
 
@@ -23,18 +23,22 @@ class User < ActiveRecord::Base
   #
   def self.authenticate(login, pass)
     user = find(:first, :conditions => ["login = ?", login])
-    user.password_matches(pass) ? user : nil
+    (user && user.password_matches?(pass)) ? user : nil
   end
 
   def admin?
     self.role == ROLE_ADMIN
   end
 
+  def password_matches?(pass)
+    salt, _ = password.split(/:/)
+    self.password == self.class.sha1(salt, pass)
+  end
+
   protected
 
-  # Apply SHA1 encryption to the supplied password.
-  # We will additionally surround the password with a salt
-  # for additional security.
+  # Apply SHA1 encryption to the supplied password. We will additionally
+  # surround the password with a salt for additional security.
   def self.sha1(salt, pass)
     salt + ':' + Digest::SHA1.hexdigest("#{salt}--#{pass}--")
   end
@@ -44,30 +48,24 @@ class User < ActiveRecord::Base
     (0..16).collect { |i| chars[rand(chars.length)] }.join
   end
 
-  def password_matches(pass)
-    salt, hash = pass.split(/:/)
-    self.hashed_password == self.class.sha1(salt, pass)
-  end
-
-  # Before saving the record to database we will crypt the password
-  # using SHA1.
-  # We never store the actual password in the DB.
+  # Before saving the record to database we will crypt the password using
+  # SHA1. We never store the actual password in the DB.
   def crypt_password
-    write_attribute "hashed_password", self.class.sha1(self.class.generate_salt, hashed_password)
+    write_attribute "password", self.class.sha1(self.class.generate_salt, password)
     @password = nil
   end
 
-  # If the record is updated we will check if the password is empty.
-  # If its empty we assume that the user didn't want to change his
-  # password and just reset it to the old value.
+  # If the record is updated we will check if the password is empty. If its
+  # empty we assume that the user didn't want to change his password and
+  # just reset it to the old value.
   def crypt_unless_empty
     $stderr.puts "crypt_unless_empty" # DEBUG
-    if self.hashed_password.empty?
+    if self.password.empty?
       user = self.class.find(self.id)
-      $stderr.puts "crypt_unless_empty re-read user hashed_password = #{hashed_password}" # DEBUG
-      self.hashed_password = user.hashed_password
+      $stderr.puts "crypt_unless_empty re-read user password = #{password}" # DEBUG
+      self.password = user.password
     else
-      write_attribute "hashed_password", self.class.sha1(self.class.generate_salt, hashed_password)
+      write_attribute "password", self.class.sha1(self.class.generate_salt, password)
     end
   end
 end

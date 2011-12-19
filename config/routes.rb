@@ -1,4 +1,6 @@
 Timelord::Application.routes.draw do
+
+  match 'users/login', :controller => 'users', :action => 'login'
   resources :users
 
   resources :work_entries

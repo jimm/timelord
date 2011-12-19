@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(:version => 20111218150431) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login",                               :null => false
-    t.string   "hashed_password",                     :null => false
-    t.string   "role",            :default => "user", :null => false
-    t.string   "name",                                :null => false
-    t.string   "email",                               :null => false
-    t.string   "address",                             :null => false
+    t.string   "login",                          :null => false
+    t.string   "password",                       :null => false
+    t.string   "role",       :default => "user", :null => false
+    t.string   "name",                           :null => false
+    t.string   "email",                          :null => false
+    t.string   "address",                        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20111218150431) do
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id",    :default => 1, :null => false
   end
 
 end
