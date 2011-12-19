@@ -37,9 +37,10 @@ class WorkEntryTest < ActiveSupport::TestCase
   end
 
   test "scope in_month" do
-    assert_equal 0, WorkEntry.in_month(2011, 10).count
-    assert_equal 1, WorkEntry.in_month(2011, 11).count
-    assert_equal 2, WorkEntry.in_month(2011, 12).count
+    user = users(:one)
+    assert_equal 0, WorkEntry.in_month(user.id, 2011, 10).count
+    assert_equal 1, WorkEntry.in_month(user.id, 2011, 11).count
+    assert_equal 2, WorkEntry.in_month(user.id, 2011, 12).count
   end
 
 end

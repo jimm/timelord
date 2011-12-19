@@ -8,7 +8,7 @@ class InvoiceController < ApplicationController
   end
 
   def preview
-    @inv = Invoice.generate(params[:year].to_i, params[:month].to_i)
+    @inv = Invoice.generate(@curr_user, params[:year].to_i, params[:month].to_i)
 
     respond_to do |format|
       format.html # preview.html.erb

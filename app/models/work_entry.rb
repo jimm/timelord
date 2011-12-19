@@ -3,7 +3,7 @@ class WorkEntry < ActiveRecord::Base
   belongs_to :code
   belongs_to :user
 
-  scope :in_month, lambda { |year, month| where('extract (year from worked_at) = ? and extract(month from worked_at) = ?', year, month) }
+  scope :in_month, lambda { |user_id, year, month| where('user_id = ? and extract (year from worked_at) = ? and extract(month from worked_at) = ?', user_id, year, month) }
 
   # Converts minutes to a string like "d:hh:mm".
   def self.minutes_as_duration(minutes)

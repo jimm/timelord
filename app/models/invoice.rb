@@ -10,10 +10,10 @@ class Invoice
   PDF_RIGHT_JUSTIFY_COLS = [3, 4, 6]
   PDF_WORK_ENTRY_COL_WIDTHS = {1 => 60, 2 => 120, 4 => 50, 6 => 50}
 
-  attr_reader :year, :month, :work_entries, :total
+  attr_reader :user, :year, :month, :work_entries, :total
 
-  def self.generate(year, month)
-    inv = new(year, month)
+  def self.generate(user, year, month)
+    inv = new(user, year, month)
     inv.generate
     inv
   end
@@ -27,12 +27,12 @@ class Invoice
     "$#{dollars}.#{'%02d' % cents.to_i}"
   end
 
-  def initialize(year, month)
-    @year, @month = year, month
+  def initialize(user, year, month)
+    @user, @year, @month = user, year, month
   end
 
   def generate
-    @work_entries = WorkEntry.in_month(@year, @month).all
+    @work_entries = WorkEntry.in_month(@user.id, @year, @month).all
     @total
     @work_entries.each { |w|
       w.rate_cents = 10000
@@ -147,14 +147,13 @@ class Invoice
 
   def pdf_header
     str = <<EOS
-Erica March Menard
-1000 Old Post Road
-Fairfield, CT 06824
+#{@user.name}
+#{@user.address}
 EOS
     str.each_line { |line| @pdf.text line, :style => :bold, :align => :center }
     @pdf.move_down 30
     str = <<EOS
-Invoice  ##{invoice_number}
+Invoice  ##{@user.id}-#{invoice_number}
 #{date_range_start}-#{date_range_end}, #{year}
 EOS
     str.each_line { |line| @pdf.text line, :style => :bold, :align => :right }
