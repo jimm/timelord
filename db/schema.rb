@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20111218150431) do
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",    :default => 1, :null => false
+    t.integer  "user_id",    :default => 2, :null => false
   end
 
 end
