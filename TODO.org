@@ -1,5 +1,7 @@
 * To Do
 
+** TODO link new work entries to current user (get func test to work)
+** TODO invoice needs user id
 ** TODO only admin can edit locs, codes, and users
 ** TODO If delete code or loc, do right thing to objs that use it
    Don't allow delete if code or loc is/was used at all?

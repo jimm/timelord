@@ -32,6 +32,13 @@ class WorkEntriesControllerTest < ActionController::TestCase
     assert_redirected_to work_entry_path(assigns(:work_entry))
   end
 
+  test "should link work_entry to user" do
+    post :create, work_entry: @work_entry.attributes.merge(:note => 'xyzzy')
+    we = WorkEntry.find_by_code_id(@work_entry.code_id, :conditions => ['note = ?', 'xyzzy'])
+    assert_not_nil we
+    assert_equal users(:one).id, we.user_id
+  end
+
   test "should convert duration on create" do
     post :create, work_entry: @work_entry.attributes.merge({:minutes => '1:23', :note => 'xyzzy'})
     w = WorkEntry.where("note = 'xyzzy'").first
