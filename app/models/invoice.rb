@@ -41,7 +41,7 @@ class Invoice
   end
 
   def invoice_number
-    (year - 2011) * 12 + month
+    "#{@user.id}-#{(year - 2011) * 12 + month}"
   end
 
   def locations
@@ -103,7 +103,7 @@ class Invoice
   end
 
   def csv_header
-    ['', "Menard time from #{date_range_start} - #{date_range_end}, #{year}"]
+    ['', "#{@user.name} time from #{date_range_start} - #{date_range_end}, #{year}"]
   end
 
   def csv_data
@@ -153,7 +153,7 @@ EOS
     str.each_line { |line| @pdf.text line, :style => :bold, :align => :center }
     @pdf.move_down 30
     str = <<EOS
-Invoice  ##{@user.id}-#{invoice_number}
+Invoice  ##{invoice_number}
 #{date_range_start}-#{date_range_end}, #{year}
 EOS
     str.each_line { |line| @pdf.text line, :style => :bold, :align => :right }
@@ -204,7 +204,7 @@ EOS
 
     @pdf.repeat(all_but_first_page) do
       @pdf.bounding_box [@pdf.bounds.left, 12], :width  => @pdf.bounds.width do
-        @pdf.text "Erica March Menard / Invoice ##{invoice_number} / #{date_range_start} - #{date_range_end}, #{year}"
+        @pdf.text "#{@user.name} / Invoice ##{invoice_number} / #{date_range_start} - #{date_range_end}, #{year}"
       end
     end
 
