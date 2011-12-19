@@ -17,10 +17,10 @@ class InvoiceTest < ActiveSupport::TestCase
 
   test "invoice number" do
     inv = Invoice.new(@user, 2011, 11)
-    assert_equal 11, inv.invoice_number
+    assert_equal "#{@user.id}-11", inv.invoice_number
 
     inv = Invoice.new(@user, 2012, 11)
-    assert_equal 23, inv.invoice_number
+    assert_equal "#{@user.id}-23", inv.invoice_number
   end
 
 end
