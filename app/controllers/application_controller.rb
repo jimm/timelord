@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
     load_curr_user
     redirect_to :controller => 'account', :action => 'login' unless @curr_user
   end
+
+  def admin_logged_in
+    load_curr_user
+    redirect_to :controller => 'account', :action => 'login' unless @curr_user && @curr_user.admin?
+  end
 end
