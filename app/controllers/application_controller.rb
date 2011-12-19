@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  def logged_in
+  def load_curr_user
     uid = session[:user_id]
-    @user = User.find_by_id(uid) if uid
-    redirect_to :controller => 'users', :action => 'login' unless @user
+    @curr_user = User.find_by_id(uid) if uid
+  end
+
+  def logged_in
+    load_curr_user
+    redirect_to :controller => 'account', :action => 'login' unless @curr_user
   end
 end

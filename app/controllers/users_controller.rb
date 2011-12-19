@@ -1,21 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :logged_in, :except => [:login]
-
-  # GET /login
-  def login
-    $stderr.puts "login, params[:login] = #{params[:login]}" # DEBUG
-    if params[:login]
-      @user = User.authenticate(params[:login], params[:password])
-      $stderr.puts "@user = #{@user}" # DEBUG
-      if @user
-        session[:user_id] = @user.id
-        redirect_to '/'
-      else
-        flash[:errors] = ['User with that login name and password not found']
-      end
-    end
-  end
+  before_filter :logged_in
 
   # GET /users
   # GET /users.json

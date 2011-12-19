@@ -1,20 +1,12 @@
 * To Do
 
-** TODO name, account & logout links in upper right side of screen
-** TODO account (password, name, address change) page
-   same as edit page, but check on that page to make sure user is either
-   admin or owns that user
-
-   either that, or clone the page
-** TODO if delete code or loc, do right thing to objs that use it
-** TODO restart app on machine restart
+** TODO If delete code or loc, do right thing to objs that use it
+   Don't allow delete if code or loc is/was used at all?
+** TODO Restart app on machine restart
    cron job, use @restart
-** TODO PDF output of whole doc
-*** TODO footer to close to bottom of tables; can get closer to page bottom?
-*** DONE add header
-*** DONE add footer
-** TODO delete CSV version
-** TODO subtotals for CSV verston
+** TODO PDF footer too close to bottom of tables; can get closer to page bottom?
+** TODO Delete CSV version?
+** TODO Subtotals for CSV verston
 cols C location
 cols D code and total work
 cols G subtotals and amount

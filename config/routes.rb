@@ -1,6 +1,10 @@
 Timelord::Application.routes.draw do
 
-  match 'users/login', :controller => 'users', :action => 'login'
+  match 'account/login', :controller => 'account', :action => 'login'
+  match 'account/logout', :controller => 'account', :action => 'logout'
+  match 'account/:id/edit', :controller => 'account', :action => 'edit'
+  match 'account/1', :method => :put, :controller => 'account', :action => 'update'
+
   resources :users
 
   resources :work_entries
@@ -9,6 +13,7 @@ Timelord::Application.routes.draw do
 
   resources :locations
 
+  match '/', :controller => 'work_entries', :action => 'new'
   match 'nav', :controller => 'nav', :action => 'index'
   match 'nav/:action', :controller => 'nav'
 

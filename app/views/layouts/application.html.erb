@@ -9,6 +9,15 @@
 <body>
 
 <div class="header">
+  <div class="rhs">
+    <% if @curr_user %>
+      <%= link_to_unless_current 'Account', "/account/#{@curr_user.id}/edit" %>
+      |
+      <%= link_to 'Log Out', "/account/logout" %>
+    <% else %>
+      <%= link_to_unless_current 'Log In', "/account/login" %>
+    <% end %>
+  </div>
   <h1 class="nav"><%= link_to_unless_current 'Time Lord', '/nav' %></h1>
   <div class="nav">
     <%= link_to_unless_current 'Home', '/nav' %>
