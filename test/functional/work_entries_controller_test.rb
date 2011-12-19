@@ -3,6 +3,7 @@ require 'test_helper'
 class WorkEntriesControllerTest < ActionController::TestCase
   setup do
     @work_entry = work_entries(:one)
+    session[:user_id] = users(:one).id
   end
 
   test "should convert minutes" do

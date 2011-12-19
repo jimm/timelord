@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+# password is "password"
 one:
   login: one
-  password: hashed_pwd
-  role: user
+  password: mhppgjrJK0ILQ1rix:1840296de4051d0e2b9f8d2c4b891fb3549b638e
+  role: admin
   name: one
   email: one@example.com
   address: one one street

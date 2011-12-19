@@ -1,9 +1,8 @@
 * To Do
 
+** TODO only admin can edit locs, codes, and users
 ** TODO If delete code or loc, do right thing to objs that use it
    Don't allow delete if code or loc is/was used at all?
-** TODO Restart app on machine restart
-   cron job, use @restart
 ** TODO PDF footer too close to bottom of tables; can get closer to page bottom?
 ** TODO Delete CSV version?
 ** TODO Subtotals for CSV verston

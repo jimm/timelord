@@ -3,6 +3,7 @@ require 'test_helper'
 class LocationsControllerTest < ActionController::TestCase
   setup do
     @location = locations(:loc1)
+    session[:user_id] = users(:one).id
   end
 
   test "should get index" do
