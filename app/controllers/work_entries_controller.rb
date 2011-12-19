@@ -5,7 +5,7 @@ class WorkEntriesController < ApplicationController
   # GET /work_entries
   # GET /work_entries.json
   def index
-    @work_entries = WorkEntry.find_by_user_id(@curr_user.id)
+    @work_entries = WorkEntry.find_all_by_user_id(@curr_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
