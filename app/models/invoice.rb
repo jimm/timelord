@@ -19,6 +19,8 @@ class Invoice
   end
 
   def self.money_str(cents)
+    return '' unless cents
+
     ms = '%03d' % cents
     dollars, cents = ms[0..-3], ms[-2..-1]
     cents = cents.to_i || 0

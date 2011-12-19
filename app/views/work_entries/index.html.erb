@@ -5,8 +5,8 @@
     <th>Code</th>
     <th>Worked at</th>
     <th>Time Spent</th>
-    <th>Rate (Cents)</th>
-    <th>Fee (Cents)</th>
+    <th>Rate</th>
+    <th>Fee</th>
     <th>Note</th>
     <th></th>
   </tr>
@@ -16,8 +16,8 @@
     <td><%= work_entry.code.full_name %></td>
     <td><%= work_entry.worked_at %></td>
     <td><%= work_entry.minutes_as_duration %></td>
-    <td><%= work_entry.rate_cents %></td>
-    <td><%= work_entry.fee_cents %></td>
+    <td class="right"><%= Invoice.money_str(work_entry.rate_cents) %></td>
+    <td class="right"><%= Invoice.money_str(work_entry.fee_cents) %></td>
     <td><%= work_entry.note %></td>
     <td>
       <%= link_to 'Show', work_entry %>
