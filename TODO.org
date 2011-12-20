@@ -1,5 +1,4 @@
 * To Do
-** TODO pagination
 ** TODO If delete code or loc, do right thing to objs that use it
    Don't allow delete if code or loc is/was used at all?
 ** TODO PDF footer too close to bottom of tables; can get closer to page bottom?

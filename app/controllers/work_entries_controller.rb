@@ -6,9 +6,9 @@ class WorkEntriesController < ApplicationController
   # GET /work_entries.json
   def index
     @work_entries = if @curr_user.admin?
-                      WorkEntry.order('worked_at').all
+                      WorkEntry.order('worked_at').page(params[:page])
                     else
-                      WorkEntry.order('worked_at').find_all_by_user_id(@curr_user.id)
+                      WorkEntry.order('worked_at').where('user_id = ?', @curr_user.id).page(params[:page])
                     end
     respond_to do |format|
       format.html # index.html.erb

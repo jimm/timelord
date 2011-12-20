@@ -5,7 +5,7 @@ class CodesController < ApplicationController
   # GET /codes
   # GET /codes.json
   def index
-    @codes = Code.display_order.all
+    @codes = Code.display_order.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
