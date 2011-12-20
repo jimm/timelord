@@ -1,7 +1,12 @@
 require 'test_helper'
 
 class CodeTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "used true if used" do
+    assert codes(:loc1code1).used?
+  end
+
+  test "used false if not used" do
+    assert !codes(:loc1code2).used?
+  end
 end
