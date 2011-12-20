@@ -9,7 +9,7 @@ class AccountController < ApplicationController
     if params[:login]
       @curr_user = User.authenticate(params[:login], params[:password])
       if @curr_user
-        session[:user_id] = @user.id
+        session[:user_id] = @curr_user.id
         redirect_to @curr_user.admin? ? '/nav/' : '/'
       else
         flash[:errors] = ['User with that login name and password not found']
