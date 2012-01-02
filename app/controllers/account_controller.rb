@@ -5,7 +5,6 @@ class AccountController < ApplicationController
   # GET /login
   # POST /login
   def login
-    $stderr.puts "login, params[:login] = #{params[:login]}" # DEBUG
     if params[:login]
       @curr_user = User.authenticate(params[:login], params[:password])
       if @curr_user
