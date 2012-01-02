@@ -28,6 +28,7 @@
   <div class="field">
     <%= f.label :minutes, 'Time Spent' %><br />
     <%= f.text_field :minutes, value: @work_entry.minutes_as_duration %>
+    <span class="note">examples: 1:15, 2:45, 0:15, 15, 90</span>
   </div>
   <div class="field">
     <%= f.label :note %><br />
