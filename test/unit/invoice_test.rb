@@ -3,7 +3,7 @@ require 'test_helper'
 class InvoiceTest < ActiveSupport::TestCase
 
   def setup
-    @user = users(:one)
+    @user = users(:admin)
   end
 
   test "money to string" do

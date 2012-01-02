@@ -3,7 +3,7 @@ require 'test_helper'
 class CodesControllerTest < ActionController::TestCase
   setup do
     @code = codes(:loc1code1)
-    session[:user_id] = users(:one).id
+    session[:user_id] = users(:admin).id
   end
 
   test "should get index" do
@@ -46,5 +46,11 @@ class CodesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to codes_path
+  end
+
+  test "disallow normal user" do
+    session[:user_id] = users(:normal).id
+    get :new
+    assert_response :redirect
   end
 end

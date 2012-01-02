@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
 
-  before_filter :admin_logged_in
+  before_filter :admin_logged_in, :except => [:codes]
+  before_filter :logged_in, :only => [:codes]
 
   # GET /locations
   # GET /locations.json

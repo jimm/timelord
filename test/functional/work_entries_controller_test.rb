@@ -3,7 +3,7 @@ require 'test_helper'
 class WorkEntriesControllerTest < ActionController::TestCase
   setup do
     @work_entry = work_entries(:one)
-    session[:user_id] = users(:one).id
+    session[:user_id] = users(:normal).id
   end
 
   test "should convert minutes" do
@@ -36,7 +36,7 @@ class WorkEntriesControllerTest < ActionController::TestCase
     post :create, work_entry: @work_entry.attributes.merge(:note => 'xyzzy')
     we = WorkEntry.find_by_code_id(@work_entry.code_id, :conditions => ['note = ?', 'xyzzy'])
     assert_not_nil we
-    assert_equal users(:one).id, we.user_id
+    assert_equal users(:normal).id, we.user_id
   end
 
   test "should convert duration on create" do

@@ -3,7 +3,7 @@ require 'test_helper'
 class LocationsControllerTest < ActionController::TestCase
   setup do
     @location = locations(:loc1)
-    session[:user_id] = users(:one).id
+    session[:user_id] = users(:admin).id
   end
 
   test "should get index" do
@@ -46,5 +46,18 @@ class LocationsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to locations_path
+  end
+
+  test "should get codes for location as JSON" do
+    get :codes, id: @location.to_param, format: 'json'
+    assert_response :success
+    assert_match @location.codes.first.name, response.body
+  end
+
+  test "should get codes for location as JSON even if not admin user" do
+    session[:user_id] = users(:normal).id
+    get :codes, id: @location.to_param, format: 'json'
+    assert_response :success
+    assert_match @location.codes.first.name, response.body
   end
 end

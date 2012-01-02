@@ -1,3 +1,7 @@
+* Bugs
+** DONE if not admin user, codes don't switch properly on new work entry page
+** TODO accept ':15', '15', '90' as minutes without hour or colon
+   show samples next to text box
 * To Do
 ** TODO scripted database backup
    http://devcenter.heroku.com/articles/pgbackups

@@ -30,7 +30,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "password matches" do
-    assert users(:one).password_matches?('password'), "password matcher is busted"
+    assert users(:admin).password_matches?('password'), "password matcher is busted"
     assert @user.password_matches?(@create_params[:password]), "password matcher is busted"
   end
 

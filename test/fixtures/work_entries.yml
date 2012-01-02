@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  user: one
+  user: normal
   code: loc1code1
   worked_at: 2011-12-05
   minutes: 75
@@ -10,7 +10,7 @@ one:
   note: MyText
 
 two:
-  user: one
+  user: normal
   code: loc2code2
   worked_at: 2011-12-05
   minutes: 90
@@ -19,7 +19,7 @@ two:
   note: MyText
 
 older:
-  user: one
+  user: normal
   code: loc2code2
   worked_at: 2011-11-05
   minutes: 120
