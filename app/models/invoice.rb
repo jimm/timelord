@@ -165,7 +165,7 @@ TO:
 Marc Weinreich, Vice President
 Greenfield Environmental Trust Group, Inc.
 1928 Eagle Crest Drive
-Draper, UT  84020		
+Draper, UT  84020
 EOS
     str.each_line { |line| @pdf.text line, :style => :bold }
   end

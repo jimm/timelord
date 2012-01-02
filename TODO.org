@@ -1,4 +1,6 @@
 * To Do
+** TODO scripted database backup
+   http://devcenter.heroku.com/articles/pgbackups
 ** TODO use acts_as_money
 ** TODO If delete code or loc, do right thing to objs that use it
    Don't allow delete if code or loc is/was used at all?
