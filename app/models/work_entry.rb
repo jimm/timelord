@@ -37,8 +37,7 @@ class WorkEntry < ActiveRecord::Base
 
   # Converts a string like "d:hh:mm" to minutes.
   def self.duration_as_minutes(dur)
-    dur =~ /(?:(\d+):)?(\d+):(\d+)/
-    d, h, m = $1, $2, $3
+    m, h, d = dur.split(/:/).reverse
     m.to_i + h.to_i * 60 + (d ? d.to_i * 60 * 24 : 0)
   end
 

@@ -23,17 +23,24 @@ class WorkEntryTest < ActiveSupport::TestCase
   end
 
   test "duration as minutes" do
-    assert_equal WorkEntry.duration_as_minutes(''), 0
-    assert_equal WorkEntry.duration_as_minutes('0'), 0
-    assert_equal WorkEntry.duration_as_minutes('0:00'), 0
-    assert_equal WorkEntry.duration_as_minutes('0:09'), 9
-    assert_equal WorkEntry.duration_as_minutes('0:59'), 59
-    assert_equal WorkEntry.duration_as_minutes('1:00'), 60
-    assert_equal WorkEntry.duration_as_minutes('1:59'), 60+59
-    assert_equal WorkEntry.duration_as_minutes('2:00'), 120
-    assert_equal WorkEntry.duration_as_minutes('1:00:00'), MINS_PER_DAY
-    assert_equal WorkEntry.duration_as_minutes('1:00:59'), MINS_PER_DAY + 59
-    assert_equal WorkEntry.duration_as_minutes('1:02:02'), MINS_PER_DAY + 122
+    assert_equal 0, WorkEntry.duration_as_minutes('')
+    assert_equal 0, WorkEntry.duration_as_minutes('0')
+    assert_equal 0, WorkEntry.duration_as_minutes('0:00')
+    assert_equal 9, WorkEntry.duration_as_minutes('0:09')
+    assert_equal 59, WorkEntry.duration_as_minutes('0:59')
+    assert_equal 60, WorkEntry.duration_as_minutes('1:00')
+    assert_equal 60+59, WorkEntry.duration_as_minutes('1:59')
+    assert_equal 120, WorkEntry.duration_as_minutes('2:00')
+    assert_equal MINS_PER_DAY, WorkEntry.duration_as_minutes('1:00:00')
+    assert_equal MINS_PER_DAY + 59, WorkEntry.duration_as_minutes('1:00:59')
+    assert_equal MINS_PER_DAY + 122, WorkEntry.duration_as_minutes('1:02:02')
+  end
+
+  test "duration as minutes without hour or colon" do
+    assert_equal 15, WorkEntry.duration_as_minutes('15')
+    assert_equal 15, WorkEntry.duration_as_minutes(':15')
+    assert_equal 90, WorkEntry.duration_as_minutes('90')
+    assert_equal 90, WorkEntry.duration_as_minutes(':90')
   end
 
   test "scope in_month" do
