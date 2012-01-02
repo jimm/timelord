@@ -35,6 +35,14 @@
     <%= f.label :address %><br />
     <%= text_area :user, :address, :rows => 6, :cols => 40 %>
   </div>
+  <div class="field">
+    <%= f.label :rate_type %><br />
+    <%= f.select :rate_type, User.all_rate_types.collect { |t| [t, t] }, :selected => @user.rate_type || 'hourly' %>
+  </div>
+  <div class="field">
+    <%= label_tag 'user[rate_amount]', 'Rate' %><br />
+    <%= text_field_tag 'user[rate_amount]', money_str(@user.rate_amount_cents) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

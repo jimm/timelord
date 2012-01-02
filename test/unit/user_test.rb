@@ -11,7 +11,9 @@ class UserTest < ActiveSupport::TestCase
       :role => 'user',
       :name => 'Spongebob Squarepants',
       :email => 'spongebob@example.com',
-      :address => 'Bikini Bottom'
+      :address => 'Bikini Bottom',
+      :rate_type => 'hourly',
+      :rate_amount_cents => '10000'
     }
     @user = User.create(@create_params)
   end
@@ -49,4 +51,28 @@ class UserTest < ActiveSupport::TestCase
     assert !@user.password.blank?, "user password should not be blank after save"
     assert_equal old_hashed_value, @user.password
   end
+
+  test "money to cents conversion" do
+    assert_equal 0, User.money_to_cents('')
+    assert_equal 0, User.money_to_cents('0')
+    assert_equal 50, User.money_to_cents('50')
+    assert_equal 50, User.money_to_cents('$.50')
+    assert_equal 50, User.money_to_cents('$0.50')
+    assert_equal 150, User.money_to_cents('$1.50')
+    assert_equal 1203, User.money_to_cents('$12.03')
+    assert_equal 12345, User.money_to_cents('$123.45')
+    assert_equal 1234500, User.money_to_cents('$12,345.00')
+  end
+
+  test "hourly rate in cents" do
+    assert_equal 10000, @user.hourly_rate_cents(nil)
+    assert_equal 10000, @user.hourly_rate_cents(234)
+  end
+
+  test "hourly rate in cents for yearly amount" do
+    @user.rate_type = 'yearly'
+    @user.rate_amount_cents = 100_000_00
+    assert_equal (100_000_00 / (12 * 60 * 500)), @user.hourly_rate_cents(500)
+  end
+
 end

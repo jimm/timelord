@@ -30,6 +30,35 @@ class User < ActiveRecord::Base
     %w(user admin)
   end
 
+  def self.all_rate_types
+    %w(hourly yearly)
+  end
+
+  # Turns a string like '$1,234.56' into an integer number of cents.
+  def self.money_to_cents(str)
+    return 0 if (str == nil || str == '')
+    str.gsub(/\D/, '').to_i
+  end
+
+  # Given the number of minutes worked in a month, return the hourly rate
+  # for that month. If the user's rate type is hourly, that will be
+  # returned. If it's yearly, we figure out how much to charge per hour
+  # based on the number of minutes worked.
+  def hourly_rate_cents(minutes_worked_in_month)
+    case self.rate_type
+    when 'hourly'
+      self.rate_amount_cents
+    when 'yearly'
+      if minutes_worked_in_month == 0
+        0
+      else
+        (self.rate_amount_cents.to_f / (12.0 * 60.0 * minutes_worked_in_month.to_f)).to_i
+      end
+    else
+      raise 'illegal rate type'
+    end
+  end
+
   def admin?
     self.role == ROLE_ADMIN
   end
@@ -63,10 +92,8 @@ class User < ActiveRecord::Base
   # empty we assume that the user didn't want to change his password and
   # just reset it to the old value.
   def crypt_unless_empty
-    $stderr.puts "crypt_unless_empty" # DEBUG
     if self.password.empty?
       user = self.class.find(self.id)
-      $stderr.puts "crypt_unless_empty re-read user password = #{password}" # DEBUG
       self.password = user.password
     else
       write_attribute "password", self.class.sha1(self.class.generate_salt, password)

@@ -25,6 +25,16 @@
   <%= @user.address %>
 </p>
 
+<p>
+  <b>Rate Type:</b>
+  <%= @user.rate_type %>
+</p>
+
+<p>
+  <b>Rate:</b>
+  <%= money_str(@user.rate_amount_cents) %>
+</p>
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

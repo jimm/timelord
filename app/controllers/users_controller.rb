@@ -85,4 +85,13 @@ class UsersController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # Returns hash with :rate_amount_cents created from :rate_amount money
+  # string.
+  def rate_to_cents(param_hash)
+    param_hash = param_hash.symbolize_keys
+    param_hash[:rate_amount_cents] = User.money_to_cents(param_hash.delete(:rate_amount))
+    param_hash
+  end
+
 end

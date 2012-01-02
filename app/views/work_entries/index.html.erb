@@ -18,8 +18,8 @@
     <td><%= work_entry.code.full_name %></td>
     <td><%= work_entry.worked_at %></td>
     <td><%= work_entry.minutes_as_duration %></td>
-    <td class="right"><%= Invoice.money_str(work_entry.rate_cents) %></td>
-    <td class="right"><%= Invoice.money_str(work_entry.fee_cents) %></td>
+    <td class="right"><%= money_str(work_entry.rate_cents) %></td>
+    <td class="right"><%= money_str(work_entry.fee_cents) %></td>
     <td><%= work_entry.note %></td>
     <td>
       <%= link_to 'Show', work_entry %>

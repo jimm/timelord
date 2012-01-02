@@ -17,3 +17,5 @@ normal:
   name: Normal User
   email: normal_user@example.com
   address: two two street
+  rate_type: hourly
+  rate_amount_cents: 10000

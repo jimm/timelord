@@ -3,6 +3,7 @@
 No known bugs.
 
 * To Do
+** TODO hourly or flat rate
 ** TODO scripted database backup
    http://devcenter.heroku.com/articles/pgbackups
 ** TODO use acts_as_money

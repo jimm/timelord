@@ -10,23 +10,12 @@ class Invoice
   PDF_RIGHT_JUSTIFY_COLS = [3, 4, 6]
   PDF_WORK_ENTRY_COL_WIDTHS = {1 => 60, 2 => 120, 4 => 50, 6 => 50}
 
-  attr_reader :user, :year, :month, :work_entries, :total
+  attr_reader :user, :year, :month, :work_entries
 
   def self.generate(user, year, month)
     inv = new(user, year, month)
     inv.generate
     inv
-  end
-
-  def self.money_str(cents)
-    return '' unless cents
-
-    ms = '%03d' % cents
-    dollars, cents = ms[0..-3], ms[-2..-1]
-    cents = cents.to_i || 0
-    dollars = dollars.reverse.gsub(/(\d\d\d)/, '\1,').reverse.sub(/^,/, '')
-    dollars = '0' if dollars == ''
-    "$#{dollars}.#{'%02d' % cents.to_i}"
   end
 
   def initialize(user, year, month)
@@ -35,9 +24,9 @@ class Invoice
 
   def generate
     @work_entries = WorkEntry.in_month(@user.id, @year, @month).all
-    @total
+    tmim = total_minutes_in_month()
     @work_entries.each { |w|
-      w.rate_cents = 10000
+      w.rate_cents = @user.hourly_rate_cents(tmim)
       w.fee_cents = w.rate_cents * w.minutes / 60
     }
   end
@@ -62,6 +51,10 @@ class Invoice
     @work_entries.sum(&:fee_cents)
   end
 
+  def total_minutes_in_month
+    @work_entries.sum(&:minutes)
+  end
+
   def work_entries_at(location)
     @work_entries.select { |w| w.code.location == location }.sort_by(&:worked_at)
   end
@@ -72,10 +65,6 @@ class Invoice
 
   def date_range_end
     "#{MONTHS[month]} #{Time.mktime(@year, @month, 1).end_of_month.day}"
-  end
-
-  def money_str(cents)
-    Invoice.money_str(cents)
   end
 
   def csv_download_file_name

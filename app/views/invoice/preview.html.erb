@@ -32,9 +32,9 @@
       <td><%= w.worked_at %></td>
       <td><%= w.code.full_name %></td>
       <td class="right"><%= w.minutes_as_duration %></td>
-      <td class="right"><%= @inv.money_str(w.rate_cents) %></td>
+      <td class="right"><%= money_str(w.rate_cents) %></td>
       <td><%= w.note %></td>
-      <td class="right"><%= @inv.money_str(w.fee_cents) %></td>
+      <td class="right"><%= money_str(w.fee_cents) %></td>
     </tr>
   <% end %>
 <% end %>
@@ -53,7 +53,7 @@
     <tr>
       <td><%= code.location.name %></td>
       <td><%= code.full_name %></td>
-      <td class="right"><%= @inv.money_str(@inv.code_subtotal(code)) %>
+      <td class="right"><%= money_str(@inv.code_subtotal(code)) %>
     </tr>
   <% end %>
   <tr>
@@ -64,6 +64,6 @@
   <tr>
     <td>&nbsp;</td>
     <td><b>Total</b></td>
-    <td class="right"><%= @inv.money_str(@inv.total) %></td>
+    <td class="right"><%= money_str(@inv.total) %></td>
   </tr>
 </table>

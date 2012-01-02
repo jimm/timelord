@@ -91,6 +91,8 @@ class WorkEntriesController < ApplicationController
     end
   end
 
+  # Creates new hash with :minutes created by parsing that value as a string
+  # from the incoming hash.
   def duration_to_minutes(param_hash)
     param_hash = param_hash.symbolize_keys
     param_hash[:minutes] = WorkEntry.duration_as_minutes(param_hash[:minutes])

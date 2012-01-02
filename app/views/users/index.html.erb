@@ -9,6 +9,8 @@
     <th>Name</th>
     <th>Email</th>
     <th>Address</th>
+    <th>Rate Type</th>
+    <th>Rate</th>
     <th></th>
   </tr>
 
@@ -19,6 +21,8 @@
     <td><%= user.name %></td>
     <td><a href="mailto:<%= user.email %>"><%= user.email %></a></td>
     <td><%= user.address %></td>
+    <td><%= user.rate_type %></td>
+    <td><%= money_str(user.rate_amount_cents) %></td>
     <td>
       <%= link_to 'Show', user %>
       <%= link_to 'Edit', edit_user_path(user) %>
