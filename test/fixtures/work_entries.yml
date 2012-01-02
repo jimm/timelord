@@ -4,18 +4,21 @@ one:
   user: normal
   code: loc1code1
   worked_at: 2011-12-05
-  minutes: 75
-  rate_cents: 
-  fee_cents: 
+  minutes: 30
   note: MyText
 
 two:
   user: normal
   code: loc2code2
   worked_at: 2011-12-05
+  minutes: 60
+  note: MyText
+
+three:
+  user: normal
+  code: loc2code2
+  worked_at: 2011-12-05
   minutes: 90
-  rate_cents: 
-  fee_cents: 
   note: MyText
 
 older:

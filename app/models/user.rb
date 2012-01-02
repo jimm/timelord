@@ -52,7 +52,9 @@ class User < ActiveRecord::Base
       if minutes_worked_in_month == 0
         0
       else
-        (self.rate_amount_cents.to_f / (12.0 * 60.0 * minutes_worked_in_month.to_f)).to_i
+        monthly_amount = self.rate_amount_cents.to_f / 12.0
+        hours_worked_in_month = minutes_worked_in_month.to_f / 60.0
+        (monthly_amount / hours_worked_in_month).to_i
       end
     else
       raise 'illegal rate type'

@@ -71,8 +71,9 @@ class UserTest < ActiveSupport::TestCase
 
   test "hourly rate in cents for yearly amount" do
     @user.rate_type = 'yearly'
-    @user.rate_amount_cents = 100_000_00
-    assert_equal (100_000_00 / (12 * 60 * 500)), @user.hourly_rate_cents(500)
+    @user.rate_amount_cents = 1200_00
+    assert_equal 100_00, @user.hourly_rate_cents(60)
+    assert_equal 50_00, @user.hourly_rate_cents(120)
   end
 
 end

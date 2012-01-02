@@ -17,8 +17,8 @@ class WorkEntryTest < ActiveSupport::TestCase
   end
 
   test "minutes as duration instance method calls class method" do
-    assert_equal '1:15', work_entries(:one).minutes_as_duration
-    assert_equal '1:30', work_entries(:two).minutes_as_duration
+    assert_equal '0:30', work_entries(:one).minutes_as_duration
+    assert_equal '1:00', work_entries(:two).minutes_as_duration
     assert_equal '2:00', work_entries(:older).minutes_as_duration
   end
 
@@ -47,7 +47,7 @@ class WorkEntryTest < ActiveSupport::TestCase
     user = users(:normal)
     assert_equal 0, WorkEntry.in_month(user.id, 2011, 10).count
     assert_equal 1, WorkEntry.in_month(user.id, 2011, 11).count
-    assert_equal 2, WorkEntry.in_month(user.id, 2011, 12).count
+    assert_equal 3, WorkEntry.in_month(user.id, 2011, 12).count
   end
 
 end
