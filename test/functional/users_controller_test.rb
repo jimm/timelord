@@ -41,6 +41,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to user_path(assigns(:user))
   end
 
+  test "should set hourly rate from string" do
+    params = @user.attributes
+    params.delete('rate_amount_cents')
+    params.merge!({'rate_type' => 'hourly', 'rate_amount' => '$123.45'})
+    put :update, id: @user.to_param, user: params
+    assert_redirected_to user_path(assigns(:user))
+    @user.reload
+    assert_equal 12345, @user.rate_amount_cents
+  end
+
   test "should destroy user" do
     assert_difference('User.count', -1) do
       delete :destroy, id: @user.to_param
