@@ -1,1 +1,18 @@
+= Introduction
+
 Time Lord is a simple time tracking and reporting tool.
+
+= Deploying
+
+Time Lord is currently deployed on Heroku. When you clone this code on a new
+machine, you'll have to install the =heroku= gem and also run =git remote
+add heroku git@heroku.com:timelord.git=.
+
+To deploy you /might/ have to run =heroku keys:add= which uploads your
+public SSH key to Heroku.
+
+To deploy, run =git push heroku master=.
+
+= Database
+
+PostgreSQL. See the Heroku docs.
