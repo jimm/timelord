@@ -3,10 +3,14 @@
 No known bugs.
 
 * To Do
-** TODO hourly or flat rate
-** TODO scripted database backup
+** DONE hourly or flat rate
+** TODO Show work entries in reverse order in master list?
+** TODO Search for work entries (at the least, limit by date range)
+** TODO Change "Back" to "Back to List" or "All <Foo>" or something like that
+** TODO Support hourly or flat rate changing over time
+** TODO Scripted database backup
    http://devcenter.heroku.com/articles/pgbackups
-** TODO use acts_as_money
+** TODO Use acts_as_money
 ** TODO If delete code or loc, do right thing to objs that use it
    Don't allow delete if code or loc is/was used at all?
 ** TODO PDF footer too close to bottom of tables; can get closer to page bottom?
