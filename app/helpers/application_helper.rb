@@ -1,3 +1,6 @@
+# Note: if ApplicationHelper gets more methods, should probably extract
+# money_str from that class instead of including everything in Invoice.
+
 module ApplicationHelper
 
   def money_str(cents)
