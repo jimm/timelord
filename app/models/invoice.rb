@@ -90,7 +90,7 @@ class Invoice
 
   def to_csv
     CSV.generate do |csv|
-      csv_header.each { |row| csv << row }
+      csv << csv_header
       csv << ['']
       csv_data.each { |row| csv << row }
       csv << ['']

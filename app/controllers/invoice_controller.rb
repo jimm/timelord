@@ -13,7 +13,7 @@ class InvoiceController < ApplicationController
     respond_to do |format|
       format.html # preview.html.erb
       format.csv {
-        send_data(@inv.to_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => @inv.csv_file_name)
+        send_data(@inv.to_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => @inv.csv_download_file_name)
       }
       format.pdf {
         path = @inv.write_to_pdf
