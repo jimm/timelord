@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     params[:user][:address].strip!
-    @user = User.new(params[:user])
+    @user = User.new(rate_to_cents(params[:user]))
 
     respond_to do |format|
       if @user.save
