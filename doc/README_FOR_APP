@@ -13,6 +13,11 @@ public SSH key to Heroku.
 
 To deploy, run =git push heroku master=.
 
+See https://api.heroku.com/myapps/timelord for app status, resources, etc.
+
 = Database
 
 PostgreSQL. See the Heroku docs.
+
+Uses the Heroku add-on that keeps backups:
+https://api.heroku.com/myapps/timelord/addons/pgbackups:auto-month

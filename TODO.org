@@ -3,7 +3,6 @@
 No known bugs.
 
 * To Do
-** DONE hourly or flat rate
 ** TODO generate invoice page: dropdown "January 2012", "December 2011"...
    sorted in reverse order
    generated from min/max work dates of work entries
