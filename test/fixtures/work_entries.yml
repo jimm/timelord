@@ -21,6 +21,13 @@ three:
   minutes: 90
   note: MyText
 
+newer:
+  user: normal
+  code: loc2code1
+  worked_at: 2012-01-02
+  minutes: 45
+  note: Next year
+
 older:
   user: normal
   code: loc2code2

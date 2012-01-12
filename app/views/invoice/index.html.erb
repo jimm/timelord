@@ -3,12 +3,8 @@
 <form action="/invoice/preview" method="get">
 
   <div class="field">
-    <%= label_tag :year, 'Year' %><br/>
-    <input type="text" id="year" name="year" value="<%= Time.now.year %>"/>
-  </div>
-  <div class="field">
-    <%= label_tag :month, 'Month' %><br/>
-    <input type="text" id="month" name="month" value="<%= Time.now.month %>"/>
+    <%= label_tag :year_nonth, 'Month' %><br/>
+    <%= select_tag "year_month", options_for_select(@months) %>
   </div>
   <div class="actions">
     <%= submit_tag 'Generate Invoice' %>

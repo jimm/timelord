@@ -5,6 +5,21 @@ class WorkEntry < ActiveRecord::Base
 
   scope :in_month, lambda { |user_id, year, month| where('user_id = ? and extract (year from worked_at) = ? and extract(month from worked_at) = ?', user_id, year, month) }
 
+  # Return min year, min year month, max year, max year month
+  def self.min_max_dates_for_user(user)
+    sql = <<EOS
+select min(worked_at), max(worked_at)
+from #{table_name}
+where user_id = #{user.id}
+EOS
+    min_str, max_str = *connection.query(sql).first
+    min_str =~ /(\d{4})-(\d{2})-\d{2}/
+    min_year, min_year_month = $1, $2
+    max_str =~ /(\d{4})-(\d{2})-\d{2}/
+    max_year, max_year_month = $1, $2
+    [min_year.to_i, min_year_month.to_i, max_year.to_i, max_year_month.to_i]
+  end
+
   # Converts minutes to a string like "d:hh:mm".
   def self.minutes_as_duration(minutes)
     return nil unless minutes

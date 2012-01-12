@@ -4,6 +4,14 @@ class WorkEntryTest < ActiveSupport::TestCase
 
   MINS_PER_DAY = 60 * 24
 
+  test "min max dates" do
+    min_year, min_year_month, max_year, max_year_month = *WorkEntry.min_max_dates_for_user(users(:normal))
+    assert_equal 2011, min_year
+    assert_equal 2012, max_year
+    assert_equal 11, min_year_month
+    assert_equal 1, max_year_month
+  end
+
   test "minutes as duration" do
     assert_equal '0:00', WorkEntry.minutes_as_duration(0)
     assert_equal '0:09', WorkEntry.minutes_as_duration(9)
