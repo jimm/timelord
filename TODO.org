@@ -4,6 +4,7 @@ No known bugs.
 
 * To Do
 ** TODO Show work entries in reverse order in master list?
+** TODO If admin user, allow filtering work entries by user via select
 ** TODO Search for work entries (at the least, limit by date range)
 ** TODO Change "Back" to "Back to List" or "All <Foo>" or something like that
 ** TODO Support hourly or flat rate changing over time
