@@ -21,3 +21,10 @@ PostgreSQL. See the Heroku docs.
 
 Uses the Heroku add-on that keeps backups:
 https://api.heroku.com/myapps/timelord/addons/pgbackups:auto-month
+
+= Gems
+
+* Development server: thin (http://code.macournoyer.com/thin/)
+* Database: pg (http://deveiate.org/code/pg/)
+* PDF: Prawn (http://prawn.majesticseacreature.com/)
+* Pagination: Kaminari (http://rubydoc.info/gems/kaminari/0.13.0/frames)
