@@ -5,11 +5,13 @@ class WorkEntriesController < ApplicationController
   # GET /work_entries
   # GET /work_entries.json
   def index
-    @work_entries = if @curr_user.admin?
-                      WorkEntry.order('worked_at').page(params[:page])
-                    else
-                      WorkEntry.order('worked_at').where('user_id = ?', @curr_user.id).page(params[:page])
-                    end
+    @order = params[:order] || 'desc'
+    @order = 'desc' unless %w(asc desc).include?(@order.downcase) # default value; also avoids SQL hacks
+    query = WorkEntry.order("worked_at #{@order}")
+    query = query.where('user_id = ?', @curr_user.id) unless @curr_user.admin?
+    @page = params[:page]
+    @work_entries = query.page(@page)
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @work_entries }

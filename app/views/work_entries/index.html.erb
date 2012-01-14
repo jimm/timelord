@@ -1,11 +1,20 @@
 <h1>Listing work_entries</h1>
 
-<%= paginate @work_entries %><br/>
+<%= paginate @work_entries, :params => {:order => @order} %><br/>
 
 <table>
   <tr>
     <th>Code</th>
-    <th>Worked at</th>
+    <th>
+      Worked<br/>At 
+      <% if @order == 'asc' %>
+        <%= link_to image_tag('up.png'), "?page=#{@page}&order=desc"
+            %><%= image_tag 'down_disabled.png' %>
+      <% else %>
+        <%= image_tag 'up_disabled.png'
+            %><%= link_to image_tag('down.png'), "?page=#{@page}&order=asc" %>
+      <% end %>
+    </th>
     <th>Time Spent</th>
     <th>Rate</th>
     <th>Fee</th>
@@ -17,7 +26,7 @@
   <tr>
     <td><%= work_entry.code.full_name %></td>
     <td><%= work_entry.worked_at %></td>
-    <td><%= work_entry.minutes_as_duration %></td>
+    <td class="right"><%= work_entry.minutes_as_duration %></td>
     <td class="right"><%= money_str(work_entry.rate_cents) %></td>
     <td class="right"><%= money_str(work_entry.fee_cents) %></td>
     <td><%= work_entry.note %></td>
