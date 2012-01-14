@@ -5,8 +5,10 @@ class WorkEntriesController < ApplicationController
   # GET /work_entries
   # GET /work_entries.json
   def index
-    @order = params[:order] || 'desc'
+    @order = params[:order] || session[:order] || 'desc'
     @order = 'desc' unless %w(asc desc).include?(@order.downcase) # default value; also avoids SQL hacks
+    session[:order] = @order
+
     query = WorkEntry.order("worked_at #{@order}")
     query = query.where('user_id = ?', @curr_user.id) unless @curr_user.admin?
     @page = params[:page]
