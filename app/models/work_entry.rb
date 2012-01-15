@@ -3,7 +3,13 @@ class WorkEntry < ActiveRecord::Base
   belongs_to :code
   belongs_to :user
 
-  scope :in_month, lambda { |user_id, year, month| where('user_id = ? and extract (year from worked_at) = ? and extract(month from worked_at) = ?', user_id, year, month) }
+  scope :in_month, lambda { |user_id, year, month|
+    if user_id
+      where('user_id = ? and extract (year from worked_at) = ? and extract(month from worked_at) = ?', user_id, year, month)
+    else                        # used by admins only
+      where('extract (year from worked_at) = ? and extract(month from worked_at) = ?', year, month)
+    end
+  }
 
   # Return min year, min year month, max year, max year month
   def self.min_max_dates_for_user(user)

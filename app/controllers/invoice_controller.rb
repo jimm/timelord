@@ -2,22 +2,14 @@ Mime::Type.register "application/pdf", :pdf
 
 class InvoiceController < ApplicationController
 
-  MONTHS = %w(January February March April May June July August September October November December)
-
   before_filter :logged_in
 
   def index
-    min_year, min_year_month, max_year, max_year_month = WorkEntry.min_max_dates_for_user(@curr_user)
-    @months = (min_year * 12 + (min_year_month-1) .. max_year * 12 + (max_year_month-1)).collect { |year_month|
-      year = year_month / 12
-      month = year_month % 12
-      ["#{year} #{MONTHS[month]}", year_month]
-    }.reverse
+    @months = work_months_options
   end
 
   def preview
-    year = params[:year_month].to_i / 12
-    month = (params[:year_month].to_i % 12) + 1
+    year, month = *year_month_int_to_year_and_month(params[:year_month].to_i)
     @inv = Invoice.generate(@curr_user, year, month)
 
     respond_to do |format|

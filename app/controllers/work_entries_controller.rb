@@ -9,8 +9,17 @@ class WorkEntriesController < ApplicationController
     @order = 'desc' unless %w(asc desc).include?(@order.downcase) # default value; also avoids SQL hacks
     session[:order] = @order
 
+    @months = work_months_options(true)
+    @year_month = (params[:year_month] || session[:year_month] || '').to_i
+    session[:year_month] = @year_month
+
     query = WorkEntry.order("worked_at #{@order}")
-    query = query.where('user_id = ?', @curr_user.id) unless @curr_user.admin?
+    if @year_month != 0
+      year, month = *year_month_int_to_year_and_month(@year_month)
+      query = query.in_month(@curr_user.admin? ? nil : @curr_user.id, year, month)
+    else
+      query = query.where('user_id = ?', @curr_user.id) unless @curr_user.admin?
+    end
     @page = params[:page]
     @work_entries = query.page(@page)
 

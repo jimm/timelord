@@ -5,3 +5,12 @@
 span.note {
   font-style: italic
 }
+
+table.list-nav {
+  width: 100%;
+  background-color: #ddf;
+  border: none;
+  td, th {
+    border: none;
+  }
+}

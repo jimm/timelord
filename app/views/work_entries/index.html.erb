@@ -1,6 +1,19 @@
 <h1>Work Entries</h1>
 
-<%= paginate @work_entries, :params => {:order => @order} %><br/>
+<table class="list-nav">
+  <tr>
+    <td><%= paginate @work_entries, :params => {:order => @order} %></td>
+    <td class="right">
+      <form action="">
+        <%# do not include page because new collection means new page value %>
+        <input type="hidden" name="order" value="<%= @order %>"/>
+        Show month: <%= select_tag "year_month", options_for_select(@months, :selected => @year_month), :onchange => 'submit()' %>
+      </form>
+    </td>
+  </tr>
+</table>
+
+<br/>
 
 <table>
   <tr>
