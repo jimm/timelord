@@ -11,18 +11,22 @@ class WorkEntry < ActiveRecord::Base
     end
   }
 
-  # Return min year, min year month, max year, max year month
+  # Return min year, min year month, max year, max year month. If user is
+  # nil, return min/max dates for all work entries.
   def self.min_max_dates_for_user(user)
-    sql = <<EOS
-select min(worked_at), max(worked_at)
-from #{table_name}
-where user_id = #{user.id}
-EOS
+    sql = "select min(worked_at), max(worked_at) from #{table_name}"
+    if user
+      sql << " where user_id = #{user.id}"
+    end
+
+    logger.debug "ABOUT TO SELECT"
     min_str, max_str = *connection.query(sql).first
     min_str =~ /(\d{4})-(\d{2})-\d{2}/
     min_year, min_year_month = $1, $2
     max_str =~ /(\d{4})-(\d{2})-\d{2}/
     max_year, max_year_month = $1, $2
+    logger.debug [min_year.to_i, min_year_month.to_i, max_year.to_i, max_year_month.to_i].inspect # DEBUG
+    logger.debug "ABOUT TO RETURN"
     [min_year.to_i, min_year_month.to_i, max_year.to_i, max_year_month.to_i]
   end
 

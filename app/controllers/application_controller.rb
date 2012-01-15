@@ -21,11 +21,15 @@ class ApplicationController < ActionController::Base
 
   # Return select options for all months between current user's start and
   # end work entry dates. If +include_all+ is true, prepend an "All" option.
-  def work_months_options(include_all=false)
-    min_year, min_year_month, max_year, max_year_month = WorkEntry.min_max_dates_for_user(@curr_user)
-    months = (year_and_month_to_int(min_year, min_year_month) .. year_and_month_to_int(max_year, max_year_month)).collect { |year_month|
-      [year_month_int_to_str(year_month), year_month]
-    }.reverse
+  def work_months_options(user=@curr_user, include_all=false)
+    min_year, min_year_month, max_year, max_year_month = WorkEntry.min_max_dates_for_user(user)
+    months = if min_year == 0 && max_year == 0
+               []
+             else
+               (year_and_month_to_int(min_year, min_year_month) .. year_and_month_to_int(max_year, max_year_month)).collect { |year_month|
+        [year_month_int_to_str(year_month), year_month]
+      }.reverse
+             end
     months = [['All', '']] + months if include_all
     months
   end

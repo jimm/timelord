@@ -4,9 +4,12 @@
   <tr>
     <td><%= paginate @work_entries, :params => {:order => @order} %></td>
     <td class="right">
+      <% if @curr_user.admin? %>
+        <form action="">
+          Show user: <%= select_tag "work_user", options_for_select(@work_user_options, :selected => @work_user ? @work_user.id : nil), :onchange => 'submit()' %>
+        </form>
+      <% end %>
       <form action="">
-        <%# do not include page because new collection means new page value %>
-        <input type="hidden" name="order" value="<%= @order %>"/>
         Show month: <%= select_tag "year_month", options_for_select(@months, :selected => @year_month), :onchange => 'submit()' %>
       </form>
     </td>

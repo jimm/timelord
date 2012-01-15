@@ -9,17 +9,38 @@ class WorkEntriesController < ApplicationController
     @order = 'desc' unless %w(asc desc).include?(@order.downcase) # default value; also avoids SQL hacks
     session[:order] = @order
 
-    @months = work_months_options(true)
     @year_month = (params[:year_month] || session[:year_month] || '').to_i
     session[:year_month] = @year_month
 
+    # Admins may filter by user
+    if @curr_user.admin?
+      @work_user_options = [['All', '']] + User.order('name asc').all.collect { |u| [u.name, u.id] }
+      work_user_id = (params[:work_user] || session[:work_user_id] || 0).to_i
+      if work_user_id > 0
+        @work_user = User.find(work_user_id)
+        session[:work_user_id] = @work_user ? work_user_id : nil
+      else
+        @work_user = session[:work_user_id] = nil
+      end
+    else
+      @work_user = session[:work_user_id] = nil
+    end
+
     query = WorkEntry.order("worked_at #{@order}")
+    user_id = if @curr_user.admin?
+                @work_user ? @work_user.id : nil
+              else
+                @curr_user.id
+              end
     if @year_month != 0
       year, month = *year_month_int_to_year_and_month(@year_month)
-      query = query.in_month(@curr_user.admin? ? nil : @curr_user.id, year, month)
+      query = query.in_month(user_id, year, month)
     else
-      query = query.where('user_id = ?', @curr_user.id) unless @curr_user.admin?
+      query = query.where('user_id = ?', user_id) if user_id
     end
+
+    @months = work_months_options(@work_user, true)
+
     @page = params[:page]
     @work_entries = query.page(@page)
 
