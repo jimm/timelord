@@ -45,6 +45,5 @@ class ApplicationController < ActionController::Base
   # therein.
   def year_month_int_to_year_and_month(year_month)
     [year_month / 12, (year_month % 12) + 1]
-
   end
 end
