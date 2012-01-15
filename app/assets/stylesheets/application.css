@@ -15,10 +15,20 @@ div.header {
   padding: 0.5em 1em 0.5em 1em;
 }
 
-h1.nav a:link { text-decoration: none; color: black; background-color: #ddf; }
-h1.nav a:visited { text-decoration: none; color: black; background-color: #ddf; }
-h1.nav a:active { text-decoration: none; color: black; background-color: #ddf; }
-h1.nav a:hover { text-decoration: none; color: black; background-color: #ddf; }
+div.header div.title {
+  font-size: 3em;
+  font-weight: bold;
+  padding-bottom: 0.25em;
+}
+
+div.header div.title img {
+  vertical-align: middle;
+}
+
+div.header div.title a:link { text-decoration: none; color: black; background-color: #ddf; }
+div.header div.title a:visited { text-decoration: none; color: black; background-color: #ddf; }
+div.header div.title a:active { text-decoration: none; color: black; background-color: #ddf; }
+div.header div.title a:hover { text-decoration: none; color: black; background-color: #ddf; }
 
 div.nav {
   background-color: #eee;

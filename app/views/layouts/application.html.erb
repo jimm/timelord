@@ -20,7 +20,10 @@
       <%= link_to_unless_current 'Log In', "/account/login" %>
     <% end %>
   </div>
-  <h1 class="nav"><%= link_to_unless_current 'Time Lord', '/nav' %></h1>
+  <div class="title">
+    <%= link_to_unless_current image_tag('Time_Lord_Seal_tattoo_small_by_StevenLawson.png'), '/nav' %>
+    <span class="title-text"><%= link_to_unless_current 'Time Lord', '/nav' %></span>
+  </div>
   <div class="nav">
     <%= link_to_unless_current 'Home', '/nav' %>
     |
