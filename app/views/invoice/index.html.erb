@@ -1,12 +1,21 @@
 <h1>Generate an Invoice</h1>
 
-<form action="/invoice/preview" method="get">
 
+  <% if @curr_user.admin? %>
+    <form action="">
+      <div class="field">
+        <%= label_tag :work_user, 'User' %><br/>
+        <%= select_tag "work_user", options_for_select(@work_user_options, :selected => @work_user ? @work_user.id : nil), :onchange => 'submit()' %>
+      </div>
+    </form>
+  <% end %>
+
+<form action="/invoice/preview" method="get">
   <div class="field">
-    <%= label_tag :year_nonth, 'Month' %><br/>
-    <%= select_tag "year_month", options_for_select(@months) %>
+    <%= label_tag :year_month, 'Month' %><br/>
+    <%= select_tag "year_month", options_for_select(@months, :selected => @year_month) %>
   </div>
   <div class="actions">
-    <%= submit_tag 'Generate Invoice' %>
+    <%= submit_tag 'Generate Invoice', :disabled => (@months.length == 0) %>
   </div>
 </form>

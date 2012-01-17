@@ -50,4 +50,16 @@ class ApplicationController < ActionController::Base
   def year_month_int_to_year_and_month(year_month)
     [year_month / 12, (year_month % 12) + 1]
   end
+
+  def admin_create_work_user_select_ivars
+    # Admins may filter by user
+    if @curr_user.admin?
+      @work_user_options = [['All', '']] + User.order('name asc').all.collect { |u| [u.name, u.id] }
+      work_user_id = (params[:work_user] || session[:work_user_id] || 0).to_i
+      @work_user = User.find(work_user_id) if work_user_id > 0
+      session[:work_user_id] = @work_user ? work_user_id : nil
+    else
+      @work_user = session[:work_user_id] = nil
+    end
+  end
 end

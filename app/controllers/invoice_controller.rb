@@ -5,7 +5,8 @@ class InvoiceController < ApplicationController
   before_filter :logged_in
 
   def index
-    @months = work_months_options
+    admin_create_work_user_select_ivars
+    @months = work_months_options(@work_user, false)
   end
 
   def preview

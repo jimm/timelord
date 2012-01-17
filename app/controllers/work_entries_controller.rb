@@ -12,19 +12,7 @@ class WorkEntriesController < ApplicationController
     @year_month = (params[:year_month] || session[:year_month] || '').to_i
     session[:year_month] = @year_month
 
-    # Admins may filter by user
-    if @curr_user.admin?
-      @work_user_options = [['All', '']] + User.order('name asc').all.collect { |u| [u.name, u.id] }
-      work_user_id = (params[:work_user] || session[:work_user_id] || 0).to_i
-      if work_user_id > 0
-        @work_user = User.find(work_user_id)
-        session[:work_user_id] = @work_user ? work_user_id : nil
-      else
-        @work_user = session[:work_user_id] = nil
-      end
-    else
-      @work_user = session[:work_user_id] = nil
-    end
+    admin_create_work_user_select_ivars
 
     query = WorkEntry.order("worked_at #{@order}")
     user_id = if @curr_user.admin?
