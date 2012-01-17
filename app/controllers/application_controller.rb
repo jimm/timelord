@@ -51,15 +51,28 @@ class ApplicationController < ActionController::Base
     [year_month / 12, (year_month % 12) + 1]
   end
 
-  def admin_create_work_user_select_ivars
-    # Admins may filter by user
+  # Admins may filter by user
+  def admin_create_work_user_ivars(allow_nil_user=true)
     if @curr_user.admin?
-      @work_user_options = [['All', '']] + User.order('name asc').all.collect { |u| [u.name, u.id] }
       work_user_id = (params[:work_user] || session[:work_user_id] || 0).to_i
-      @work_user = User.find(work_user_id) if work_user_id > 0
-      session[:work_user_id] = @work_user ? work_user_id : nil
+      @work_user = if work_user_id > 0
+                     User.find(work_user_id)
+                   elsif allow_nil_user
+                     nil
+                   else
+                     User.find(:first, :order => 'name asc')
+                   end
+      session[:work_user_id] = @work_user ? @work_user.id : nil
     else
       @work_user = session[:work_user_id] = nil
+    end
+  end
+
+  def admin_create_work_user_select_ivars(include_all=true)
+    if @curr_user.admin?
+      @work_user_options = include_all ? [['All', '']] : []
+      @work_user_options = @work_user_options + User.order('name asc').all.collect { |u| [u.name, u.id] }
+      admin_create_work_user_ivars(include_all)
     end
   end
 end

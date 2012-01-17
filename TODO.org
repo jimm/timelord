@@ -1,14 +1,10 @@
-* Bugs
-
-No known bugs.
-
 * To Do
-** TODO Let admin filter by user for invoice generation
+** TODO Some vals in params, some in session --- clean that up
 ** TODO Support hourly or flat rate changing over time
-** TODO Use acts_as_money
 ** TODO If delete code or loc, do right thing to objs that use it
    Don't allow delete if code or loc is/was used at all?
 ** TODO PDF footer too close to bottom of tables; can get closer to page bottom?
+** TODO Use acts_as_money?
 ** TODO Delete CSV version?
 ** TODO Subtotals for CSV verston
 cols C location

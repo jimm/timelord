@@ -28,7 +28,7 @@ class Invoice
   end
 
   def generate
-    @work_entries = WorkEntry.in_month(@user.id, @year, @month).all
+    @work_entries = WorkEntry.in_month(@user ? @user.id : nil, @year, @month).all
     tmim = total_minutes_in_month()
     @work_entries.each { |w|
       w.rate_cents = @user.hourly_rate_cents(tmim)

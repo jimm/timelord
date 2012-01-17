@@ -5,13 +5,15 @@ class InvoiceController < ApplicationController
   before_filter :logged_in
 
   def index
-    admin_create_work_user_select_ivars
+    admin_create_work_user_select_ivars(false)
     @months = work_months_options(@work_user, false)
   end
 
   def preview
+    admin_create_work_user_ivars
     year, month = *year_month_int_to_year_and_month(params[:year_month].to_i)
-    @inv = Invoice.generate(@curr_user, year, month)
+    user = @curr_user.admin? ? @work_user : @curr_user
+    @inv = Invoice.generate(user, year, month)
 
     respond_to do |format|
       format.html # preview.html.erb
