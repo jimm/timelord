@@ -11,7 +11,16 @@ class InvoiceController < ApplicationController
 
   def preview
     admin_create_work_user_ivars
-    year, month = *year_month_int_to_year_and_month(params[:year_month].to_i)
+
+    year = month = 0
+    if params[:year_month]
+      year, month = *year_month_int_to_year_and_month(params[:year_month].to_i)
+    else
+      year = params[:year].to_i
+      month = params[:month].to_i
+    end
+
+    $stderr.puts "params[:year_month] = #{params[:year_month]}, year = #{year}, month = #{month}" # DEBUG
     user = @curr_user.admin? ? @work_user : @curr_user
     @inv = Invoice.generate(user, year, month)
 
