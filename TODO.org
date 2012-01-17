@@ -1,5 +1,6 @@
 * To Do
 ** TODO Some vals in params, some in session --- clean that up
+** TODO Stop passing around year_month when we can pass two separate values
 ** TODO Support hourly or flat rate changing over time
 ** TODO If delete code or loc, do right thing to objs that use it
    Don't allow delete if code or loc is/was used at all?
