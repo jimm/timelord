@@ -15,10 +15,10 @@
     <td><%= code.location.name %></td>
     <td><%= code.code %></td>
     <td><%= code.name %></td>
-    <td>
-      <%= link_to 'Show', code %>
-      <%= link_to 'Edit', edit_code_path(code) %>
-      <%= link_to 'Destroy', code, confirm: 'Are you sure?', method: :delete %>
+    <td class="actions">
+      <%= link_to image_tag('information.png'), code %>
+      <%= link_to image_tag('edit.png'), edit_code_path(code) %>
+      <%= link_to image_tag('delete.png'), code, confirm: 'Are you sure?', method: :delete %>
     </td>
   </tr>
 <% end %>
@@ -26,4 +26,4 @@
 
 <br />
 
-<%= link_to 'New Code', new_code_path %>
+<%= link_to image_tag('add.png'), new_code_path %> <%= link_to 'New Code', new_code_path %>

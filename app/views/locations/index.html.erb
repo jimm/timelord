@@ -11,10 +11,10 @@
 <% @locations.each do |location| %>
   <tr>
     <td><%= location.name %></td>
-    <td>
-      <%= link_to 'Show', location %>
-      <%= link_to 'Edit', edit_location_path(location) %>
-      <%= link_to 'Destroy', location, confirm: 'Are you sure?', method: :delete %>
+    <td class="actions">
+      <%= link_to image_tag('information.png'), location %>
+      <%= link_to image_tag('edit.png'), edit_location_path(location) %>
+      <%= link_to image_tag('delete.png'), location, confirm: 'Are you sure?', method: :delete %>
 </td>
   </tr>
 <% end %>
@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'New Location', new_location_path %>
+<%= link_to image_tag('add.png'), new_location_path %> <%= link_to 'New Location', new_location_path %>

@@ -30,6 +30,12 @@ div.header div.title a:visited { text-decoration: none; color: black; background
 div.header div.title a:active { text-decoration: none; color: black; background-color: #ddf; }
 div.header div.title a:hover { text-decoration: none; color: black; background-color: #ddf; }
 
+a { color: black; }
+a:link { background-color: none; color: black; }
+a:visited { background-color: none; color: black; }
+a:active { background-color: none; color: black; }
+a:hover { background-color: none; color: black; }
+
 div.nav {
   background-color: #eee;
   padding: 0.5em 1em 0.5em 1em;
@@ -47,4 +53,8 @@ td, th {
 
 label {
   font-weight: bold;
+}
+
+td.actions {
+  width: 60px;
 }

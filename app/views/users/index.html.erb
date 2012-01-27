@@ -23,10 +23,10 @@
     <td><%= user.address %></td>
     <td><%= user.rate_type %></td>
     <td><%= money_str(user.rate_amount_cents) %></td>
-    <td>
-      <%= link_to 'Show', user %>
-      <%= link_to 'Edit', edit_user_path(user) %>
-      <%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %>
+    <td class="actions">
+      <%= link_to image_tag('information.png'), user %>
+      <%= link_to image_tag('edit.png'), edit_user_path(user) %>
+      <%= link_to image_tag('delete.png'), user, confirm: 'Are you sure?', method: :delete %>
     </td>
   </tr>
 <% end %>
@@ -34,4 +34,4 @@
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to image_tag('add.png'), new_user_path %> <%= link_to 'New User', new_user_path %>

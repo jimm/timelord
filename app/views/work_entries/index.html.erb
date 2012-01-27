@@ -46,10 +46,10 @@
     <td class="right"><%= money_str(work_entry.rate_cents) %></td>
     <td class="right"><%= money_str(work_entry.fee_cents) %></td>
     <td><%= work_entry.note %></td>
-    <td>
-      <%= link_to 'Show', work_entry %>
-      <%= link_to 'Edit', edit_work_entry_path(work_entry) %>
-      <%= link_to 'Destroy', work_entry, confirm: 'Are you sure?', method: :delete %>
+    <td class="actions">
+      <%= link_to image_tag('information.png'), work_entry %>
+      <%= link_to image_tag('edit.png'), edit_work_entry_path(work_entry) %>
+      <%= link_to image_tag('delete.png'), work_entry, confirm: 'Are you sure?', method: :delete %> </td>
     </td>
   </tr>
 <% end %>
@@ -57,4 +57,4 @@
 
 <br />
 
-<%= link_to 'New Work entry', new_work_entry_path %>
+<%= link_to image_tag('add.png'), new_work_entry_path %> <%= link_to 'New Work Entry', new_work_entry_path %>
