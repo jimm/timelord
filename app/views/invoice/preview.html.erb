@@ -47,12 +47,14 @@
   <tr>
     <th>Location</th>
     <th>Code</th>
+    <th>Time Spent</th>
     <th>Subtotal</th>
   </tr>
   <% @inv.codes.each do |code| %>
     <tr>
       <td><%= code.location.name %></td>
       <td><%= code.full_name %></td>
+      <td><%= WorkEntry.minutes_as_duration(@inv.total_minutes_for_code(code)) %></td>
       <td class="right"><%= money_str(@inv.code_subtotal(code)) %>
     </tr>
   <% end %>

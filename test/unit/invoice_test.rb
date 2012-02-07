@@ -19,6 +19,11 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal 30+60+90, @inv.total_minutes_in_month
   end
 
+  test "total minutes in code" do
+    @inv.generate
+    assert_equal 60+90, @inv.total_minutes_for_code(codes(:loc2code2))
+  end
+
   test "generate hourly" do
     @inv.generate
     @inv.work_entries.each { |we|

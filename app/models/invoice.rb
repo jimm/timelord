@@ -60,6 +60,10 @@ class Invoice
     @work_entries.sum(&:minutes)
   end
 
+  def total_minutes_for_code(code)
+    @work_entries.select { |we| we.code == code }.sum(&:minutes)
+  end
+
   def work_entries_at(location)
     @work_entries.select { |w| w.code.location == location }.sort_by(&:worked_at)
   end
