@@ -54,7 +54,7 @@
     <tr>
       <td><%= code.location.name %></td>
       <td><%= code.full_name %></td>
-      <td><%= WorkEntry.minutes_as_duration(@inv.total_minutes_for_code(code)) %></td>
+      <td class="right"><%= WorkEntry.minutes_as_duration(@inv.total_minutes_for_code(code)) %></td>
       <td class="right"><%= money_str(@inv.code_subtotal(code)) %>
     </tr>
   <% end %>
@@ -62,10 +62,12 @@
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
+    <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td><b>Total</b></td>
+    <td class="right"><%= WorkEntry.minutes_as_duration(@inv.total_minutes_in_month) %></td>
     <td class="right"><%= money_str(@inv.total) %></td>
   </tr>
 </table>
