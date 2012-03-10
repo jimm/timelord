@@ -108,7 +108,9 @@ CREATE TABLE users (
     email character varying(255) NOT NULL,
     address character varying(255) NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    rate_type character varying(255) DEFAULT 'hourly'::character varying NOT NULL,
+    rate_amount_cents integer DEFAULT 0 NOT NULL
 );
 
 
@@ -145,7 +147,7 @@ CREATE TABLE work_entries (
     note text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    user_id integer DEFAULT 1 NOT NULL
+    user_id integer DEFAULT 2 NOT NULL
 );
 
 
@@ -246,3 +248,5 @@ INSERT INTO schema_migrations (version) VALUES ('20111206033423');
 INSERT INTO schema_migrations (version) VALUES ('20111206033647');
 
 INSERT INTO schema_migrations (version) VALUES ('20111218150431');
+
+INSERT INTO schema_migrations (version) VALUES ('20120102201205');

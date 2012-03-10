@@ -19,9 +19,9 @@ class WorkEntryTest < ActiveSupport::TestCase
     assert_equal '1:00', WorkEntry.minutes_as_duration(60)
     assert_equal '1:59', WorkEntry.minutes_as_duration(60+59)
     assert_equal '2:00', WorkEntry.minutes_as_duration(120)
-    assert_equal '1:00:00', WorkEntry.minutes_as_duration(MINS_PER_DAY)
-    assert_equal '1:00:59', WorkEntry.minutes_as_duration(MINS_PER_DAY + 59)
-    assert_equal '1:02:02', WorkEntry.minutes_as_duration(MINS_PER_DAY + 122)
+    assert_equal '24:00', WorkEntry.minutes_as_duration(MINS_PER_DAY)
+    assert_equal '24:59', WorkEntry.minutes_as_duration(MINS_PER_DAY + 59)
+    assert_equal '26:02', WorkEntry.minutes_as_duration(MINS_PER_DAY + 122)
   end
 
   test "minutes as duration instance method calls class method" do
@@ -39,9 +39,9 @@ class WorkEntryTest < ActiveSupport::TestCase
     assert_equal 60, WorkEntry.duration_as_minutes('1:00')
     assert_equal 60+59, WorkEntry.duration_as_minutes('1:59')
     assert_equal 120, WorkEntry.duration_as_minutes('2:00')
-    assert_equal MINS_PER_DAY, WorkEntry.duration_as_minutes('1:00:00')
-    assert_equal MINS_PER_DAY + 59, WorkEntry.duration_as_minutes('1:00:59')
-    assert_equal MINS_PER_DAY + 122, WorkEntry.duration_as_minutes('1:02:02')
+    assert_equal MINS_PER_DAY, WorkEntry.duration_as_minutes('24:00')
+    assert_equal MINS_PER_DAY + 59, WorkEntry.duration_as_minutes('24:59')
+    assert_equal MINS_PER_DAY + 122, WorkEntry.duration_as_minutes('26:02')
   end
 
   test "duration as minutes without hour or colon" do

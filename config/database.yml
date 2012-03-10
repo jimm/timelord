@@ -4,6 +4,7 @@ development:
   pool: 3
   username: drwho
   password: dalek
+  template: template0
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -14,6 +15,7 @@ test:
   pool: 3
   username: drwho
   password: dalek
+  template: template0
 
 # This is of course not the username/passsword used in the real production
 # system.
