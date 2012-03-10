@@ -9,7 +9,7 @@ class Invoice
   PDF_HEADER_BG = 'eeeeee'
   PDF_LOCATION_BG = 'ddddff'
   PDF_RIGHT_JUSTIFY_COLS = [3, 4, 6]
-  PDF_WORK_ENTRY_COL_WIDTHS = {1 => 60, 2 => 120, 4 => 50, 6 => 50}
+  PDF_WORK_ENTRY_COL_WIDTHS = {1 => 60, 2 => 120, 3 => 40, 4 => 50, 6 => 50}
 
   # Note: if ApplicationHelper gets more methods, should probably extract
   # money_str from that class instead of including everything here.
