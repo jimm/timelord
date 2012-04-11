@@ -9,6 +9,7 @@ class Invoice
   PDF_HEADER_BG = 'eeeeee'
   PDF_LOCATION_BG = 'ddddff'
   PDF_RIGHT_JUSTIFY_COLS = [3, 4, 6]
+  PDF_TOTALS_RIGHT_JUSTIFY_COLS = [2, 3]
   PDF_WORK_ENTRY_COL_WIDTHS = {1 => 60, 2 => 120, 3 => 40, 4 => 50, 6 => 50}
 
   # Note: if ApplicationHelper gets more methods, should probably extract
@@ -120,12 +121,12 @@ class Invoice
 
   def csv_totals
     csv = []
-    csv << ['Location', 'Code', 'Subtotal']
+    csv << ['Location', 'Code', 'Hours', 'Subtotal']
     codes.each do | code|
-      csv << [code.location.name, code.full_name, money_str(code_subtotal(code))]
+      csv << [code.location.name, code.full_name, WorkEntry.minutes_as_duration(total_minutes_for_code(code)), money_str(code_subtotal(code))]
     end
-    csv << ['', '', '']
-    csv << ['', 'Total', money_str(total)]
+    csv << ['', '', '', '']
+    csv << ['', 'Total', WorkEntry.minutes_as_duration(total_minutes_in_month), money_str(total)]
   end
 
   # Write invoice to PDF and returns the path to that file
@@ -198,6 +199,14 @@ EOS
     data = csv_totals
     data[0].each_with_index { |str, i| data[0][i] = @pdf.make_cell(:content => str, :background_color => PDF_HEADER_BG) }
     data[-1][1] = @pdf.make_cell(:content => data[-1][1], :background_color => PDF_HEADER_BG)
+
+    # right-justify some columns
+    data[1..-1].each_with_index do |row, i|
+      unless row.length == 1
+        PDF_TOTALS_RIGHT_JUSTIFY_COLS.each { |col| row[col] = @pdf.make_cell(:content => row[col], :align => :right) }
+      end
+    end
+
     @pdf.table(data, :header => true)
   end
 
