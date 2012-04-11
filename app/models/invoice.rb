@@ -189,7 +189,9 @@ EOS
     end
 
     col_widths = PDF_WORK_ENTRY_COL_WIDTHS
-    @pdf.table(data, :header => true, :column_widths => col_widths)
+    @pdf.bounding_box [0, @pdf.bounds.height], :width => @pdf.bounds.width, :height => @pdf.bounds.height - 16 do
+      @pdf.table(data, :header => true, :column_widths => col_widths)
+    end
   end
 
   def pdf_totals_table
