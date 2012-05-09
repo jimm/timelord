@@ -1,5 +1,5 @@
 * To Do
-** TODO tweak PDF output; time column isn't wide enough
+** TODO Switch to [[http://blog.railsonfire.com/2012/05/06/Unicorn-on-Heroku.html][Unicorn on Heroku]]
 ** TODO Some vals in params, some in session --- clean that up
 ** TODO Stop passing around year_month when we can pass two separate values
 ** TODO Support hourly or flat rate changing over time

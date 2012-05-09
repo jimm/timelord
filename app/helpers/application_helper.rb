@@ -13,4 +13,8 @@ module ApplicationHelper
     dollars = '0' if dollars == ''
     "$#{dollars}.#{'%02d' % cents.to_i}"
   end
+
+  def export_link(text, format, invoice)
+    link_to text, :controller => invoice_path, :action => 'preview', :format => format, :year => invoice.year, :month => invoice.month, :discount_pct => invoice.discount_pct
+  end
 end

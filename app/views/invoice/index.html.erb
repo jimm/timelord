@@ -14,6 +14,9 @@
   <div class="field">
     <%= label_tag :year_month, 'Month' %><br/>
     <%= select_tag "year_month", options_for_select(@months, :selected => @year_month) %>
+    <br/><br/>
+    <%= label_tag :discount_pct, 'Discount' %><br/>
+    <%= text_field_tag "discount_pct", nil, :size => 8 %> %
   </div>
   <div class="actions">
     <%= submit_tag 'Generate Invoice', :disabled => (@months.length == 0) %>

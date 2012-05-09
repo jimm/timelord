@@ -19,10 +19,11 @@ class InvoiceController < ApplicationController
       year = params[:year].to_i
       month = params[:month].to_i
     end
+    discount_pct = params[:discount_pct].to_i if params[:discount_pct]
 
     $stderr.puts "params[:year_month] = #{params[:year_month]}, year = #{year}, month = #{month}" # DEBUG
     user = @curr_user.admin? ? @work_user : @curr_user
-    @inv = Invoice.generate(user, year, month)
+    @inv = Invoice.generate(user, year, month, discount_pct)
 
     respond_to do |format|
       format.html # preview.html.erb

@@ -47,4 +47,39 @@ class InvoiceTest < ActiveSupport::TestCase
     }
     assert_equal 3600_00 / 12, @inv.total
   end
+
+  test "discount" do
+    @inv = Invoice.new(@user, 2011, 12, 25)
+    @inv.generate
+    @inv.work_entries.each { |we|
+      assert_equal 10000 * 0.75, @inv.discounted(we.rate_cents)
+      assert_equal (10000 * we.minutes / 60) * 0.75, @inv.discounted(we.fee_cents)
+    }
+    assert_equal 30000 * 0.75, @inv.discounted(@inv.total)
+  end
+
+  test "zero discount" do
+    @inv = Invoice.new(@user, 2011, 12, 0)
+    @inv.generate
+    @inv.work_entries.each { |we|
+      assert_equal 10000, @inv.discounted(we.rate_cents)
+      assert_equal 10000 * we.minutes / 60, @inv.discounted(we.fee_cents)
+    }
+    assert_equal 30000, @inv.discounted(@inv.total)
+  end
+
+  test "discount predicate" do
+    assert !@inv.discount?
+    @inv = Invoice.new(@user, 2011, 12, 0)
+    assert !@inv.discount?
+    @inv = Invoice.new(@user, 2011, 12, 25)
+    assert @inv.discount?
+  end
+
+  test "discount is in csv" do
+    @inv = Invoice.new(@user, 2011, 12, 25)
+    @inv.generate
+    csv = @inv.to_csv
+    assert_match /Location,Code,Hours,Subtotal,Discount,Discounted/, csv
+  end
 end

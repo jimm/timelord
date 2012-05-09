@@ -10,22 +10,23 @@ class Invoice
   PDF_LOCATION_BG = 'ddddff'
   PDF_RIGHT_JUSTIFY_COLS = [3, 4, 6]
   PDF_TOTALS_RIGHT_JUSTIFY_COLS = [2, 3]
+  PDF_TOTALS_RIGHT_JUSTIFY_COLS_WITH_DISCOUNT = [2, 3, 4, 5]
   PDF_WORK_ENTRY_COL_WIDTHS = {1 => 60, 2 => 120, 3 => 40, 4 => 50, 6 => 50}
 
   # Note: if ApplicationHelper gets more methods, should probably extract
   # money_str from that class instead of including everything here.
   include ApplicationHelper
 
-  attr_reader :user, :year, :month, :work_entries
+  attr_reader :user, :year, :month, :discount_pct, :work_entries
 
-  def self.generate(user, year, month)
-    inv = new(user, year, month)
+  def self.generate(user, year, month, discount_pct=0)
+    inv = new(user, year, month, discount_pct)
     inv.generate
     inv
   end
 
-  def initialize(user, year, month)
-    @user, @year, @month = user, year, month
+  def initialize(user, year, month, discount_pct=0)
+    @user, @year, @month, @discount_pct = user, year, month, discount_pct
   end
 
   def generate
@@ -33,7 +34,7 @@ class Invoice
     tmim = total_minutes_in_month()
     @work_entries.each { |w|
       w.rate_cents = @user.hourly_rate_cents(tmim)
-      w.fee_cents = w.rate_cents * w.minutes / 60
+      w.fee_cents = w.rate_cents * w.minutes / 60.0
     }
   end
 
@@ -67,6 +68,18 @@ class Invoice
 
   def work_entries_at(location)
     @work_entries.select { |w| w.code.location == location }.sort_by(&:worked_at)
+  end
+
+  def discount?
+    @discount_pct != nil && @discount_pct > 0
+  end
+
+  def discounted(amt_cents)
+    if @discount_pct && @discount_pct > 0
+      (amt_cents.to_f * (100.0 - @discount_pct.to_f) / 100.0).to_i
+    else
+      amt_cents
+    end
   end
 
   def date_range_start
@@ -121,12 +134,34 @@ class Invoice
 
   def csv_totals
     csv = []
-    csv << ['Location', 'Code', 'Hours', 'Subtotal']
-    codes.each do | code|
-      csv << [code.location.name, code.full_name, WorkEntry.minutes_as_duration(total_minutes_for_code(code)), money_str(code_subtotal(code))]
+    headers = ['Location', 'Code', 'Hours', 'Subtotal']
+    if discount?
+      headers += ['Discount', 'Discounted']
     end
-    csv << ['', '', '', '']
-    csv << ['', 'Total', WorkEntry.minutes_as_duration(total_minutes_in_month), money_str(total)]
+    csv << headers
+
+    codes.each do | code|
+      subtotal = code_subtotal(code)
+      row = [code.location.name, code.full_name, WorkEntry.minutes_as_duration(total_minutes_for_code(code)), money_str(subtotal)]
+      if discount?
+        row += ["#{@discount_pct}%", money_str(discounted(subtotal))]
+      end
+      csv << row
+    end
+
+    row = ['', '', '', '']
+    if discount?
+      row += ['', '']
+    end
+    csv << row
+
+    row = ['', 'Total', WorkEntry.minutes_as_duration(total_minutes_in_month), money_str(total)]
+    if discount?
+      row += ["#{@discount_pct}%", money_str(discounted(total))]
+    end
+    csv << row
+
+    csv
   end
 
   # Write invoice to PDF and returns the path to that file
@@ -201,9 +236,10 @@ EOS
     data[-1][1] = @pdf.make_cell(:content => data[-1][1], :background_color => PDF_HEADER_BG)
 
     # right-justify some columns
+    rjs = discount? ? PDF_TOTALS_RIGHT_JUSTIFY_COLS_WITH_DISCOUNT : PDF_TOTALS_RIGHT_JUSTIFY_COLS
     data[1..-1].each_with_index do |row, i|
       unless row.length == 1
-        PDF_TOTALS_RIGHT_JUSTIFY_COLS.each { |col| row[col] = @pdf.make_cell(:content => row[col], :align => :right) }
+        rjs.each { |col| row[col] = @pdf.make_cell(:content => row[col], :align => :right) }
       end
     end
 
