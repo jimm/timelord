@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120102201205) do
+ActiveRecord::Schema.define(:version => 20120511023550) do
 
   create_table "codes", :force => true do |t|
     t.integer  "location_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20120102201205) do
     t.datetime "updated_at"
     t.string   "rate_type",         :default => "hourly", :null => false
     t.integer  "rate_amount_cents", :default => 0,        :null => false
+    t.string   "invoice_recipient"
   end
 
   create_table "work_entries", :force => true do |t|

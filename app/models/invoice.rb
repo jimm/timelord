@@ -184,7 +184,7 @@ class Invoice
   def pdf_header
     str = <<EOS
 #{@user.name}
-#{@user.address}
+#{@user.address.strip}
 EOS
     str.each_line { |line| @pdf.text line, :style => :bold, :align => :center }
     @pdf.move_down 30
@@ -196,10 +196,7 @@ EOS
     @pdf.move_down 100
     str = <<EOS
 TO:
-Marc Weinreich, Vice President
-Greenfield Environmental Trust Group, Inc.
-1928 Eagle Crest Drive
-Draper, UT  84020
+#{@user.invoice_recipient.strip}
 EOS
     str.each_line { |line| @pdf.text line, :style => :bold }
   end

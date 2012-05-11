@@ -36,6 +36,10 @@
     <%= text_area :user, :address, :rows => 6, :cols => 40 %>
   </div>
   <div class="field">
+    <%= f.label :invoice_recipient %><br />
+    <%= text_area :user, :invoice_recipient, :rows => 6, :cols => 40 %>
+  </div>
+  <div class="field">
     <%= f.label :rate_type %><br />
     <%= f.select :rate_type, User.all_rate_types.collect { |t| [t, t] }, :selected => @user.rate_type || 'hourly' %>
   </div>
