@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   # Don't validate presence of password, because that will prevent
   # crypt_unless_empty from being called due to the validation violation.
-  validates_presence_of :login, :role, :name, :email, :address
+  validates_presence_of :login, :role, :name, :email, :address, :invoice_recipient
 
   before_create :crypt_password
   before_update :crypt_unless_empty
