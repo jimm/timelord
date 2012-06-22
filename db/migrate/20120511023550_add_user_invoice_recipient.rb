@@ -1,6 +1,6 @@
 class AddUserInvoiceRecipient < ActiveRecord::Migration
   def up
-    add_column :users, :invoice_recipient, :string
+    add_column :users, :invoice_recipient, :string, :default => 'N/A'
   end
 
   def down
