@@ -34,7 +34,7 @@ class AccountController < ApplicationController
     params[:user].delete(:role)
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(params.permit(:user))
         format.html { redirect_to @user, notice: 'Successfully updated.' }
         format.json { head :ok }
       else

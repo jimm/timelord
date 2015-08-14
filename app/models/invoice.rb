@@ -55,11 +55,11 @@ class Invoice
   end
 
   def total
-    @work_entries.sum(&:fee_cents)
+    @work_entries.sum(:fee_cents)
   end
 
   def total_minutes_in_month
-    @work_entries.sum(&:minutes)
+    @work_entries.sum(:minutes)
   end
 
   def total_minutes_for_code(code)

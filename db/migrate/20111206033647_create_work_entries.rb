@@ -7,8 +7,7 @@ class CreateWorkEntries < ActiveRecord::Migration
       t.integer :rate_cents
       t.integer :fee_cents
       t.text :note
-
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

@@ -45,7 +45,7 @@ class CodesController < ApplicationController
   # POST /codes
   # POST /codes.json
   def create
-    @code = Code.new(params[:code])
+    @code = Code.new(params.permit(:code))
 
     respond_to do |format|
       if @code.save
@@ -64,7 +64,7 @@ class CodesController < ApplicationController
     @code = Code.find(params[:id])
 
     respond_to do |format|
-      if @code.update_attributes(params[:code])
+      if @code.update_attributes(params.permit(:code))
         format.html { redirect_to @code, notice: 'Code was successfully updated.' }
         format.json { head :ok }
       else

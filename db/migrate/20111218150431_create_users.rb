@@ -7,8 +7,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :email, :null => false
       t.string :address, :null => false
-
-      t.timestamps
+      t.string :invoice_recipient, :default => 'N/A'
+      t.timestamps null: false
     end
 
     # NOTE: log in, create a new admin, and delete this admin RIGHT AWAY.

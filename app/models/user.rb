@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   #   @user = User.authenticate('bob', 'bobpass')
   #
   def self.authenticate(login, pass)
-    user = find(:first, :conditions => ["login = ?", login])
+    user = find_by(login: login)
     (user && user.password_matches?(pass)) ? user : nil
   end
 

@@ -54,7 +54,7 @@ class WorkEntriesController < ApplicationController
   def new
     @work_entry = WorkEntry.new
     @locations = Location.order(:name)
-    @initial_codes = Code.all(:conditions => ['location_id = ?', @locations.first.id])
+    @initial_codes = Code.where(location_id: @locations.first.id).all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -66,7 +66,7 @@ class WorkEntriesController < ApplicationController
   def edit
     @work_entry = WorkEntry.find(params[:id])
     @locations = Location.order(:name)
-    @initial_codes = Code.all(:conditions => ['location_id = ?', @work_entry.code.location.id])
+    @initial_codes = Code.where(location_id: @work_entry.code.location.id).all
   end
 
   # POST /work_entries

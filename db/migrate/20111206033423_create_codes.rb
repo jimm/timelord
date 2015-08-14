@@ -4,8 +4,7 @@ class CreateCodes < ActiveRecord::Migration
       t.integer :location_id
       t.string :code
       t.string :name
-
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
