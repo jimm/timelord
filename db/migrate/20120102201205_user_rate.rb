@@ -1,4 +1,4 @@
-class UserRate < ActiveRecord::Migration
+class UserRate < ActiveRecord::Migration[6.0]
   def up
     change_table :users do |t|
       t.string :rate_type, :length => 8, :null => false, :default => 'hourly'

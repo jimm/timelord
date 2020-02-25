@@ -1,4 +1,4 @@
-class CreateWorkEntries < ActiveRecord::Migration
+class CreateWorkEntries < ActiveRecord::Migration[6.0]
   def change
     create_table :work_entries do |t|
       t.integer :code_id
